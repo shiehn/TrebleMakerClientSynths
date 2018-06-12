@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "immutability-helper": "^2.7.0",
     "midiconvert": "^0.4.7",
     "react": "^16.4.0",
     "react-bootstrap": "^0.32.1",

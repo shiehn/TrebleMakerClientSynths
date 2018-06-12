@@ -1,15 +1,12 @@
 import './App.css';
 
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import Tone from 'tone';
-
 import { connect } from 'react-redux'
 import { updateUser } from './actions/user-actions'
-
+import Tone from 'tone';
 import MidiLoader from './MidiLoader'
 import { updatePlayState } from './actions/playstate-actions';
-
+import { switchPattern } from './actions/melodynotes-actions';
 import { Button } from 'react-bootstrap';
 
 var midiJson = {
@@ -22,12 +19,12 @@ var midiJson = {
 class App extends Component {
     constructor(props){
       super(props);
-
       this.state = { width: 0, height: 0 };
       this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
       this.onUpdateUser = this.onUpdateUser.bind(this);
       this.onUpdatePlayState = this.onUpdatePlayState.bind(this); 
+      this.onSwitchPattern = this.onSwitchPattern.bind(this);
   
       MidiLoader.loadMidi(midiJson);
     }
@@ -60,14 +57,20 @@ class App extends Component {
     this.begin();
   }
 
+  onSwitchPattern(){
+    this.props.onSwitchPattern(this.props.melodyNotes)
+  }
+
   render() {
-    console.log(this.props)
+    console.log('PROPS', this.props)
     return (
       <div className="pageWrapper">
         <div style={{width: this.state.width, height: this.state.height*0.8}}>
         <div className="btnRow">
           <span className="btnSpan">
-            <Button bsStyle="primary" className="notesBtn">Melody Notes</Button>          
+            <Button bsStyle="primary" className="notesBtn" onClick={this.onSwitchPattern.bind(this)}>{
+              this.props.melodyNotes[0].selected + ''
+            }</Button>          
             <Button bsStyle="primary" className="synthBtn">Melody Synth</Button>          
             <Button bsStyle="primary"className="fxBtn">Melody FX</Button>          
           </span>
@@ -217,12 +220,14 @@ const mapStateToProps = (state) => {
     products: state.products,
     user: state.user,
     playState: state.playState,
+    melodyNotes: state.melodyNotes,
   };
 };
 
 const mapDispatchToProps = { 
     onUpdateUser: updateUser,
-    onUpdatePlayState: updatePlayState 
+    onUpdatePlayState: updatePlayState,
+    onSwitchPattern: switchPattern,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
