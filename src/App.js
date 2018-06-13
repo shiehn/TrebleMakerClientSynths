@@ -2,12 +2,14 @@ import './App.css';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import { updateUser } from './actions/user-actions'
 import Tone from 'tone';
 import MidiLoader from './MidiLoader'
 import { updatePlayState } from './actions/playstate-actions';
-import { switchPattern } from './actions/melodynotes-actions';
+import { switchPattern } from './actions/pattern-actions';
+import { switchSynth } from './actions/synth-actions';
 import { Button } from 'react-bootstrap';
+import * as CONSTS from './consts';
+import { bindActionCreators } from 'redux';
 
 var midiJson = {
   midiMel: null,
@@ -22,10 +24,6 @@ class App extends Component {
       this.state = { width: 0, height: 0 };
       this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
-      this.onUpdateUser = this.onUpdateUser.bind(this);
-      this.onUpdatePlayState = this.onUpdatePlayState.bind(this); 
-      this.onSwitchPattern = this.onSwitchPattern.bind(this);
-  
       MidiLoader.loadMidi(midiJson);
     }
 
@@ -57,63 +55,94 @@ class App extends Component {
     this.begin();
   }
 
-  onSwitchPattern(){
-    this.props.onSwitchPattern(this.props.melodyNotes)
+  getSelectedPattern(pattern){
+    for (var i = 0; i < pattern.length; i++) {
+        if(pattern[i].selected == true){
+          console.log('selected', pattern)
+          return pattern[i];
+        }
+    }
   }
 
-  render() {
-    console.log('PROPS', this.props)
+  render() { 
+
     return (
       <div className="pageWrapper">
         <div style={{width: this.state.width, height: this.state.height*0.8}}>
         <div className="btnRow">
           <span className="btnSpan">
-            <Button bsStyle="primary" className="notesBtn" onClick={this.onSwitchPattern.bind(this)}>{
-              this.props.melodyNotes[0].selected + ''
+            <Button bsStyle="primary" className="notesBtn" onClick={() => this.props.switchPattern(CONSTS.MELODY_PATTERN, this.props.melodyPattern)}>{
+              this.getSelectedPattern(this.props.melodyPattern).name + ''
             }</Button>          
-            <Button bsStyle="primary" className="synthBtn">Melody Synth</Button>          
+            <Button bsStyle="primary" className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.MELODY_SYNTH, this.props.melodySynths)}>
+              {this.getSelectedPattern(this.props.melodySynths).name + 'MELODY SyNTH'}
+            </Button>          
             <Button bsStyle="primary"className="fxBtn">Melody FX</Button>          
           </span>
         </div>  
         <div className="btnRow">
           <span className="btnSpan">
-          <Button bsStyle="primary"className="notesBtn">Hi Notes</Button>          
-          <Button bsStyle="primary"className="synthBtn">Hi Synth</Button>          
+          <Button bsStyle="primary" className="notesBtn" onClick={() => this.props.switchPattern(CONSTS.HI_PATTERN, this.props.hiPattern)}>{
+                this.getSelectedPattern(this.props.hiPattern).selected + 'Hi Notes'
+            }</Button>          
+          <Button bsStyle="primary"className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.HI_SYNTH, this.props.hiSynths)}>
+              {this.getSelectedPattern(this.props.hiSynths).name + 'Hi Synth'}
+          </Button>          
           <Button bsStyle="primary"className="fxBtn">Hi FX</Button>          
           </span>
         </div>  
         <div className="btnRow">
           <span className="btnSpan">
-          <Button bsStyle="primary"className="notesBtn">Mid Notes</Button>          
-          <Button bsStyle="primary"className="synthBtn">Mid Synth</Button>          
+          <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.MID_PATTERN, this.props.midPattern,e)}>{
+              this.getSelectedPattern(this.props.midPattern).selected + 'Mid Notes'
+            }</Button>        
+          <Button bsStyle="primary"className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.MID_SYNTH, this.props.midSynths)} >
+            {this.getSelectedPattern(this.props.midSynths).name + 'Mid Synth'}
+          </Button>          
           <Button bsStyle="primary"className="fxBtn">Mid FX</Button>          
           </span>
         </div>  
         <div className="btnRow">
           <span className="btnSpan">
-          <Button bsStyle="primary"className="notesBtn">Low Notes</Button>          
-          <Button bsStyle="primary"className="synthBtn">Low Synth</Button>          
+          <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.LOW_PATTERN, this.props.lowPattern, e)}>{
+              this.getSelectedPattern(this.props.lowPattern).selected + 'Low Notes'
+            }</Button>          
+          <Button bsStyle="primary"className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.LOW_SYNTH, this.props.lowSynths)} >
+          {this.getSelectedPattern(this.props.lowSynths).name + 'Low Synth'}
+          </Button>          
           <Button bsStyle="primary"className="fxBtn">Low FX</Button>          
           </span>
         </div>  
         <div className="btnRow">
           <span className="btnSpan">
-          <Button bsStyle="primary"className="notesBtn">Hats Pattern</Button>          
-          <Button bsStyle="primary"className="synthBtn">Hats Sample</Button>          
+          <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.KICK_PATTERN, this.props.kickPattern, e)}>{
+              this.getSelectedPattern(this.props.kickPattern).selected + 'Kick Pattern'
+            }</Button>       
+          <Button bsStyle="primary"className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.KICK_SYNTH, this.props.kickSynths)} >
+            {this.getSelectedPattern(this.props.kickSynths).name + 'KICK Synth'}
+          </Button>          
           <Button bsStyle="primary"className="fxBtn">Hats FX</Button>          
           </span>
         </div>  
         <div className="btnRow">
           <span className="btnSpan">
-          <Button bsStyle="primary"className="notesBtn">Snare Pattern</Button>          
-          <Button bsStyle="primary"className="synthBtn">Snare Sample</Button>          
+          <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.SNARE_PATTERN, this.props.snarePattern, e)}>{
+              this.getSelectedPattern(this.props.snarePattern).selected + 'Snare Pattern'
+            }</Button>         
+          <Button bsStyle="primary"className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.SNARE_SYNTH, this.props.snareSynths)} >
+            {this.getSelectedPattern(this.props.snareSynths).name + 'SNARE Synth'}
+          </Button>          
           <Button bsStyle="primary" className="fxBtn">Snare FX</Button>          
           </span>
         </div>  
         <div className="btnRow">
           <span className="btnSpan">
-          <Button bsStyle="primary"className="notesBtn">Kick Pattern</Button>          
-          <Button bsStyle="primary"className="synthBtn">Kick Sample</Button>          
+          <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.HAT_PATTERN, this.props.hatPattern, e)}>{
+              this.getSelectedPattern(this.props.hatPattern).selected + 'Hat Pattern'
+            }</Button>            
+          <Button bsStyle="primary"className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.HAT_SYNTH, this.props.hatSynths)} >
+          {this.getSelectedPattern(this.props.hatSynths).name + 'HAT Synth'}
+          </Button>          
           <Button bsStyle="primary"className="fxBtn">Kick FX</Button>          
           </span>
         </div>  
@@ -208,7 +237,6 @@ class App extends Component {
       synth2.triggerAttackRelease(note.name, note.duration, time, note.velocity) 
     },  midiJson.midiLow.tracks[0].notes).start(0)
 
-
     console.log("PLAY 2 ..")
   
     return "my string"
@@ -217,17 +245,33 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    products: state.products,
-    user: state.user,
+    // products: state.products,
+    // user: state.user,
     playState: state.playState,
-    melodyNotes: state.melodyNotes,
+    melodyPattern: state.melodyPattern,
+    hiPattern: state.hiPattern,
+    midPattern: state.midPattern,
+    lowPattern: state.lowPattern,
+    kickPattern: state.kickPattern,
+    snarePattern: state.snarePattern,
+    hatPattern: state.hatPattern,
+
+    melodySynths: state.melodySynths,
+    hiSynths: state.hiSynths,
+    midSynths: state.midSynths,
+    lowSynths: state.lowSynths,
+    kickSynths: state.kickSynths,
+    snareSynths: state.snareSynths,
+    hatSynths: state.hatSynths,
   };
 };
 
-const mapDispatchToProps = { 
-    onUpdateUser: updateUser,
-    onUpdatePlayState: updatePlayState,
-    onSwitchPattern: switchPattern,
+const mapDispatchToProps = (dispatch) => { 
+    return bindActionCreators({
+      onUpdatePlayState: updatePlayState,
+      switchPattern: switchPattern,
+      switchSynth: switchSynth,
+    }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

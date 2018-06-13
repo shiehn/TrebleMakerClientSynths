@@ -14,13 +14,4 @@ describe('playStateReducer', () => {
     it('should return the new state', () => { 
         expect(reducer(true, {"type": UPDATE_PLAYSTATE,"payload": "undefined"})).toEqual(undefined);
     });
-
-    describe('melodyState', () => {
-        it('selected next item', () => {
-            expect(reducer(true, {
-                "type": SWITCH_MELODY_PATTERN, 
-                "payload": [{"selected": true}, {"selected": false}]}
-            )).toEqual([{"selected": false}, {"selected": true}]);
-        });
-    });
 });
