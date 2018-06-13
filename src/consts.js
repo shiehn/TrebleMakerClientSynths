@@ -21,3 +21,8 @@ export const LOW_FX = 'lowFx';
 export const KICK_FX = 'kickFx';
 export const SNARE_FX = 'snareFx';
 export const HAT_FX = 'hatFx';
+
+export const SYNTH_TYPE_MEL = 'mel';
+export const SYNTH_TYPE_HI = 'hi';
+export const SYNTH_TYPE_MID = 'mid';
+export const SYNTH_TYPE_LOW = 'low';

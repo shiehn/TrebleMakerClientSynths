@@ -46,32 +46,32 @@ const store = createStore(
     allReducers, { 
         playState: false,
         
-        melodyPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
-        melodySynths: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
+        melodyPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
+        melodySynths: [{"name": "s1", "selected": true, "color": "#42f4a7"}, {"name": "s2", "selected": false, "color": "##7d42f4"}],
         // melodyFX: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
         
-        hiPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
-        hiSynths: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
+        hiPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
+        hiSynths: [{"name": "s1", "selected": true, "color": "#42f4a7"}, {"name": "s2", "selected": false, "color": "##7d42f4"}],
         // hiFX: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
         
-        midPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
-        midSynths: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
+        midPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
+        midSynths: [{"name": "s1", "selected": true, "color": "#42f4a7"}, {"name": "s2", "selected": false, "color": "##7d42f4"}],
         // midFX: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
     
-        lowPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
-        lowSynths: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
+        lowPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
+        lowSynths: [{"name": "s1", "selected": true, "color": "#42f4a7"}, {"name": "s2", "selected": false, "color": "##7d42f4"}],
         // lowFX: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
     
-        hatPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
-        hatSynths: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
+        hatPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
+        hatSynths: [{"name": "s1", "selected": true, "color": "#42f4a7"}, {"name": "s2", "selected": false, "color": "##7d42f4"}],
         // hatFX:      [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
     
-        snarePattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
-        snareSynths: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
+        snarePattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
+        snareSynths: [{"name": "s1", "selected": true, "color": "#42f4a7"}, {"name": "s2", "selected": false, "color": "##7d42f4"}],
         // snareFX:      [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
 
-        kickPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
-        kickSynths: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
+        kickPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
+        kickSynths: [{"name": "s1", "selected": true, "color": "#42f4a7"}, {"name": "s2", "selected": false, "color": "##7d42f4"}],
         // kickFX:      [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "b", "selected": false, "color": "##7d42f4"}],
     },
     window.devToolsExtension && window.devToolsExtension()
