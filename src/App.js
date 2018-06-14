@@ -20,6 +20,8 @@ var midiJson = {
   midiLow: null,
 };
 
+var first = true;
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -60,7 +62,10 @@ class App extends Component {
               <Button bsStyle="primary" className="notesBtn" onClick={() => this.props.switchPattern(CONSTS.MELODY_PATTERN, this.props.melodyPattern)}>{
                 StateExtractor.getSelectedPattern(this.props.melodyPattern).name + ''
               }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.MELODY_SYNTH, this.props.melodySynths)}>
+              <Button bsStyle="primary" className="synthBtn" onClick={() => {
+                this.props.switchSynth(CONSTS.MELODY_SYNTH, this.props.melodySynths)
+                this.stopAndReloadSynths()
+              }}>
                 {StateExtractor.getSelectedPattern(this.props.melodySynths).name + 'MELODY SyNTH'}
               </Button>
               <Button bsStyle="primary" className="fxBtn">Melody FX</Button>
@@ -71,7 +76,10 @@ class App extends Component {
               <Button bsStyle="primary" className="notesBtn" onClick={() => this.props.switchPattern(CONSTS.HI_PATTERN, this.props.hiPattern)}>{
                 StateExtractor.getSelectedPattern(this.props.hiPattern).selected + 'Hi Notes'
               }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.HI_SYNTH, this.props.hiSynths)}>
+              <Button bsStyle="primary" className="synthBtn" onClick={() => {
+                this.props.switchSynth(CONSTS.HI_SYNTH, this.props.hiSynths)
+                this.stopAndReloadSynths()
+              }}>
                 {StateExtractor.getSelectedPattern(this.props.hiSynths).name + 'Hi Synth'}
               </Button>
               <Button bsStyle="primary" className="fxBtn">Hi FX</Button>
@@ -82,7 +90,10 @@ class App extends Component {
               <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.MID_PATTERN, this.props.midPattern, e)}>{
                 StateExtractor.getSelectedPattern(this.props.midPattern).selected + 'Mid Notes'
               }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.MID_SYNTH, this.props.midSynths)} >
+              <Button bsStyle="primary" className="synthBtn" onClick={() => {
+                this.props.switchSynth(CONSTS.MID_SYNTH, this.props.midSynths)
+                this.stopAndReloadSynths()
+              }} >
                 {StateExtractor.getSelectedPattern(this.props.midSynths).name + 'Mid Synth'}
               </Button>
               <Button bsStyle="primary" className="fxBtn">Mid FX</Button>
@@ -93,7 +104,10 @@ class App extends Component {
               <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.LOW_PATTERN, this.props.lowPattern, e)}>{
                 StateExtractor.getSelectedPattern(this.props.lowPattern).selected + 'Low Notes'
               }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.LOW_SYNTH, this.props.lowSynths)} >
+              <Button bsStyle="primary" className="synthBtn" onClick={() => {
+                this.props.switchSynth(CONSTS.LOW_SYNTH, this.props.lowSynths)
+                this.stopAndReloadSynths()
+              }} >
                 {StateExtractor.getSelectedPattern(this.props.lowSynths).name + 'Low Synth'}
               </Button>
               <Button bsStyle="primary" className="fxBtn">Low FX</Button>
@@ -104,7 +118,10 @@ class App extends Component {
               <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.KICK_PATTERN, this.props.kickPattern, e)}>{
                 StateExtractor.getSelectedPattern(this.props.kickPattern).selected + 'Kick Pattern'
               }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.KICK_SYNTH, this.props.kickSynths)} >
+              <Button bsStyle="primary" className="synthBtn" onClick={() => {
+                this.props.switchSynth(CONSTS.KICK_SYNTH, this.props.kickSynths)
+                this.stopAndReloadSynths()
+              }} >
                 {StateExtractor.getSelectedPattern(this.props.kickSynths).name + 'KICK Synth'}
               </Button>
               <Button bsStyle="primary" className="fxBtn">Hats FX</Button>
@@ -115,7 +132,10 @@ class App extends Component {
               <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.SNARE_PATTERN, this.props.snarePattern, e)}>{
                 StateExtractor.getSelectedPattern(this.props.snarePattern).selected + 'Snare Pattern'
               }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.SNARE_SYNTH, this.props.snareSynths)} >
+              <Button bsStyle="primary" className="synthBtn" onClick={() => {
+                this.props.switchSynth(CONSTS.SNARE_SYNTH, this.props.snareSynths)
+                this.stopAndReloadSynths()
+              }} >
                 {StateExtractor.getSelectedPattern(this.props.snareSynths).name + 'SNARE Synth'}
               </Button>
               <Button bsStyle="primary" className="fxBtn">Snare FX</Button>
@@ -126,7 +146,10 @@ class App extends Component {
               <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.HAT_PATTERN, this.props.hatPattern, e)}>{
                 StateExtractor.getSelectedPattern(this.props.hatPattern).selected + 'Hat Pattern'
               }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => this.props.switchSynth(CONSTS.HAT_SYNTH, this.props.hatSynths)} >
+              <Button bsStyle="primary" className="synthBtn" onClick={() => {
+                this.props.switchSynth(CONSTS.HAT_SYNTH, this.props.hatSynths)
+                this.stopAndReloadSynths()
+              }} >
                 {StateExtractor.getSelectedPattern(this.props.hatSynths).name + 'HAT Synth'}
               </Button>
               <Button bsStyle="primary" className="fxBtn">Kick FX</Button>
@@ -136,44 +159,52 @@ class App extends Component {
         <div className="playControlls" style={{ width: this.state.width, height: this.state.height * 0.2 }}>
           <span className="payControllsRow">
             <Button bsStyle="primary" className="playBtn" onClick={this.onUpdatePlayState.bind(this)}>PLAY</Button>
-            <Button bsStyle="primary" className="refreshBtn" onClick={() => this.stopAndReloadSynths()}>REFRESH</Button>
+            <Button bsStyle="primary" className="playBtn" onClick={() => { this.stopIt() }}>STOP</Button>
+            <Button bsStyle="primary" className="refreshBtn">REFRESH</Button>
           </span>
         </div>
       </div>
     );
   }
 
-  begin() {
-    
-    SynthLoader.startAll();
-    Tone.Transport.bpm.value = 100
-    Tone.Transport.start("+0.1")
+  stopIt() {
+    Tone.Transport.stop();
+    Tone.Transport.bpm.value = 120
   }
 
-  stopAndReloadSynths(){
-    if(SynthLoader.mel){
-      SynthLoader.mel.stop();
-    }
-    if(SynthLoader.hi){
-      SynthLoader.hi.stop();
-    }
-    if(SynthLoader.mid){
-      SynthLoader.mid.stop();
-    }
-    if(SynthLoader.low){
-      SynthLoader.low.stop();
+  begin() {
+    Tone.Transport.bpm.value = 70
+    Tone.Transport.start()
+  }
+
+
+
+  stopAndReloadSynths() {
+    if (SynthLoader.mel) {
+      SynthLoader.mel.dispose();
     }
 
-    Tone.Transport.stop();
+    if (SynthLoader.hi) {
+      SynthLoader.hi.dispose();
+    }
 
-    SynthLoader.load(CONSTS.SYNTH_TYPE_MEL, 
+    if (SynthLoader.mid) {
+      SynthLoader.mid.dispose();
+    }
+    if (SynthLoader.low) {
+      SynthLoader.low.dispose();
+    }
+
+    SynthLoader.load(CONSTS.SYNTH_TYPE_MEL,
       StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MEL, this.props.melodySynths).name, midiJson)
-    SynthLoader.load(CONSTS.SYNTH_TYPE_HI, 
-      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_HI, this.props.melodySynths).name, midiJson)
+    SynthLoader.load(CONSTS.SYNTH_TYPE_HI,
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_HI, this.props.hiSynths).name, midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_MID,
-      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MID, this.props.melodySynths).name, midiJson)
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MID, this.props.midSynths).name, midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_LOW,
-      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_LOW, this.props.melodySynths).name, midiJson)
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_LOW, this.props.lowSynths).name, midiJson)
+
+    SynthLoader.startAll();
   }
 }
 

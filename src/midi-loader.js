@@ -4,6 +4,7 @@ const MidiLoader = {
     loadMidi(midiJson) { 
         load("/0compmelodic.mid", function(midi) {
             midiJson.midiMel = midi;
+            console.log('MIDI', midi)
           })
       
           load("/0comphi.mid", function(midi) {

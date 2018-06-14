@@ -14,11 +14,11 @@ const SynthLoader = {
     //     SynthLoader.low = SynthLoader.load(CONST.SYNTH_TYPE_LOW, 'wip', midiJson);
     //     SynthLoader.mel = SynthLoader.load(CONST.SYNTH_TYPE_MEL, 'wip', midiJson);
     // },
-    "startAll": () => {
-        SynthLoader.mel.start(0);
-        SynthLoader.hi.start(0);
-        SynthLoader.mid.start(0);
-        SynthLoader.low.start(0);
+    "startAll": (offset) => {
+        SynthLoader.mel.start();
+        SynthLoader.hi.start();
+        SynthLoader.mid.start();
+        SynthLoader.low.start();
     },
     "load": (type, synthName, midiJson) => {
         switch (type) {
@@ -27,27 +27,29 @@ const SynthLoader = {
                 SynthLoader.mel = new Tone.Part(function (time, note) {
                     SynthLoader.getSynth(synthName).triggerAttackRelease(note.name, note.duration, time, note.velocity)
                 }, midiJson.midiMel.tracks[0].notes);
+                return;
             case CONST.SYNTH_TYPE_HI:
                 SynthLoader.hi = new Tone.Part(function (time, note) {
                     SynthLoader.getSynth(synthName).triggerAttackRelease(note.name, note.duration, time, note.velocity)
                 }, midiJson.midiHi.tracks[0].notes);
+                return;
             case CONST.SYNTH_TYPE_MID:
                 SynthLoader.mid = new Tone.Part(function (time, note) {
                     SynthLoader.getSynth(synthName).triggerAttackRelease(note.name, note.duration, time, note.velocity)
                 }, midiJson.midiMid.tracks[0].notes);
+                return;
             case CONST.SYNTH_TYPE_LOW:
                 SynthLoader.low = new Tone.Part(function (time, note) {
                     SynthLoader.getSynth(synthName).triggerAttackRelease(note.name, note.duration, time, note.velocity)
                 }, midiJson.midiLow.tracks[0].notes);
+                return;
             default:
                 return null;
         }
     },
     "getSynth": (name) => {
-        console.log('NAME', name)
         switch (name) {
             case "s1":
-                console.log('RETURN S1 SYNTH')
                 return new Tone.Synth().chain(Tone.Master);
             case "s2":
                 return new Tone.PluckSynth().chain(Tone.Master);
