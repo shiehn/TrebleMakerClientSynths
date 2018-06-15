@@ -47,7 +47,7 @@ const SynthLoader = {
                 return null;
         }
     },
-    "getSynth": (name) => {
+    "getSynth": (name, fx) => {
         switch (name) {
             case "s1":
                 return new Tone.Synth().chain(Tone.Master);
@@ -55,6 +55,12 @@ const SynthLoader = {
                 return new Tone.PluckSynth().chain(Tone.Master);
             default:
                 return null;
+        }
+    },
+    "getFx": (fx) => {
+        switch(fx) {
+            case "fx1":
+                return 
         }
     },
 
