@@ -68,15 +68,15 @@ const store = createStore(
         melodyFx: [{"name": "fx1", "selected": true, "color": "#42f4a7"}, {"name": "fx2", "selected": false, "color": "##7d42f4"}],
         
         hiPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
-        hiSynths: [{"name": "s1", "selected": true, "color": "#42f4a7"}, {"name": "s2", "selected": false, "color": "##7d42f4"}],
+        hiSynths: [{"name": "hi1", "selected": true, "color": "#42f4a7"}, {"name": "hi1", "selected": false, "color": "##7d42f4"}],
         hiFx: [{"name": "fx1", "selected": true, "color": "#42f4a7"}, {"name": "fx2", "selected": false, "color": "##7d42f4"}],
         
         midPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
-        midSynths: [{"name": "s1", "selected": true, "color": "#42f4a7"}, {"name": "s2", "selected": false, "color": "##7d42f4"}],
+        midSynths: [{"name": "mid1", "selected": true, "color": "#42f4a7"}, {"name": "mid2", "selected": false, "color": "##7d42f4"}],
         midFx: [{"name": "fx1", "selected": true, "color": "#42f4a7"}, {"name": "fx2", "selected": false, "color": "##7d42f4"}],
     
         lowPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
-        lowSynths: [{"name": "s1", "selected": true, "color": "#42f4a7"}, {"name": "s2", "selected": false, "color": "##7d42f4"}],
+        lowSynths: [{"name": "low1", "selected": true, "color": "#42f4a7"}, {"name": "low2", "selected": false, "color": "##7d42f4"}],
         lowFx: [{"name": "fx1", "selected": true, "color": "#42f4a7"}, {"name": "fx2", "selected": false, "color": "##7d42f4"}],
     
         hatPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
