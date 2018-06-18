@@ -221,8 +221,6 @@ class App extends Component {
     Tone.Transport.start()
   }
 
-
-
   stopAndReloadSynths() {
     this.stopIt();
 
@@ -241,14 +239,22 @@ class App extends Component {
       SynthLoader.low.dispose();
     }
 
-    SynthLoader.load(CONSTS.SYNTH_TYPE_MEL,
-      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MEL, this.props.melodySynths).name, midiJson)
+    SynthLoader.load(CONSTS.SYNTH_TYPE_MEL, 
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MEL, this.props.melodySynths).name, 
+      StateExtractor.getSelectedSynthFx(this.props.melodyFx).name,
+      midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_HI,
-      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_HI, this.props.hiSynths).name, midiJson)
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_HI, this.props.hiSynths).name, 
+      StateExtractor.getSelectedSynthFx(this.props.hiFx).name,
+      midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_MID,
-      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MID, this.props.midSynths).name, midiJson)
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MID, this.props.midSynths).name, 
+      StateExtractor.getSelectedSynthFx(this.props.midFx).name,
+      midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_LOW,
-      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_LOW, this.props.lowSynths).name, midiJson)
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_LOW, this.props.lowSynths).name, 
+      StateExtractor.getSelectedSynthFx(this.props.lowFx).name,
+      midiJson)
 
     SynthLoader.startAll();
 

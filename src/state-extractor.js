@@ -8,6 +8,13 @@ const StateExtraction = {
             }
         }
     },
+    "getSelectedSynthFx": (fx) => {
+        for (var i = 0; i < fx.length; i++) {
+            if (fx[i].selected == true) {
+                return fx[i];
+            }
+        }
+    },
     "getSelectedSynth": (type, synths) => {
         switch (type) {
             case CONSTS.SYNTH_TYPE_MEL:
