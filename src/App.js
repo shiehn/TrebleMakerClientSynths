@@ -19,9 +19,10 @@ var midiJson = {
   midiHi: null,
   midiMid: null,
   midiLow: null,
+  midiKick: null,
+  midiSnare: null,
+  midiHat: null,
 };
-
-var first = true;
 
 class App extends Component {
   constructor(props) {
@@ -238,22 +239,43 @@ class App extends Component {
     if (SynthLoader.low) {
       SynthLoader.low.dispose();
     }
+    if (SynthLoader.kick) {
+      SynthLoader.kick.dispose();
+    }
+    if (SynthLoader.snare) {
+      SynthLoader.snare.dispose();
+    }
+    if (SynthLoader.hat) {
+      SynthLoader.hat.dispose();
+    }
 
-    SynthLoader.load(CONSTS.SYNTH_TYPE_MEL, 
-      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MEL, this.props.melodySynths).name, 
+    SynthLoader.load(CONSTS.SYNTH_TYPE_MEL,
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MEL, this.props.melodySynths).name,
       StateExtractor.getSelectedSynthFx(this.props.melodyFx).name,
       midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_HI,
-      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_HI, this.props.hiSynths).name, 
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_HI, this.props.hiSynths).name,
       StateExtractor.getSelectedSynthFx(this.props.hiFx).name,
       midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_MID,
-      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MID, this.props.midSynths).name, 
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MID, this.props.midSynths).name,
       StateExtractor.getSelectedSynthFx(this.props.midFx).name,
       midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_LOW,
-      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_LOW, this.props.lowSynths).name, 
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_LOW, this.props.lowSynths).name,
       StateExtractor.getSelectedSynthFx(this.props.lowFx).name,
+      midiJson)
+    SynthLoader.load(CONSTS.SYNTH_TYPE_KICK,
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_KICK, this.props.kickSynths).name,
+      StateExtractor.getSelectedSynthFx(this.props.kickFx).name,
+      midiJson)
+    SynthLoader.load(CONSTS.SYNTH_TYPE_SNARE,
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_SNARE, this.props.snareSynths).name,
+      StateExtractor.getSelectedSynthFx(this.props.snareFx).name,
+      midiJson)
+    SynthLoader.load(CONSTS.SYNTH_TYPE_HAT,
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_HAT, this.props.hatSynths).name, 
+      StateExtractor.getSelectedSynthFx(this.props.hatFx).name,
       midiJson)
 
     SynthLoader.startAll();

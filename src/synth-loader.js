@@ -7,16 +7,22 @@ const SynthLoader = {
     [CONST.SYNTH_TYPE_HI]: undefined,
     [CONST.SYNTH_TYPE_MID]: undefined,
     [CONST.SYNTH_TYPE_LOW]: undefined,
+    [CONST.SYNTH_TYPE_KICK]: undefined,
+    [CONST.SYNTH_TYPE_SNARE]: undefined,
+    [CONST.SYNTH_TYPE_HAT]: undefined,
 
     "startAll": (offset) => {
         SynthLoader.mel.start();
         SynthLoader.hi.start();
         SynthLoader.mid.start();
         SynthLoader.low.start();
+        SynthLoader.kick.start();
+        SynthLoader.snare.start();
+        SynthLoader.hat.start();
     },
     "load": (type, synthId, fxId, midiJson) => {
         switch (type) {
-            case CONST.SYNTH_TYPE_MEL: 
+            case CONST.SYNTH_TYPE_MEL:
                 SynthLoader.mel = new Tone.Part(function (time, note) {
                     console.log('FX ID', fxId)
                     SynthLoader.getSynth(synthId, fxId).triggerAttackRelease(note.name, note.duration, time, note.velocity)
@@ -37,6 +43,21 @@ const SynthLoader = {
                     SynthLoader.getSynth(synthId, fxId).triggerAttackRelease(note.name, note.duration, time, note.velocity)
                 }, midiJson.midiLow.tracks[0].notes);
                 return;
+            case CONST.SYNTH_TYPE_KICK:
+                SynthLoader.kick = new Tone.Part(function (time, note) {
+                    SynthLoader.getSynth(synthId, fxId).triggerAttackRelease(note.name, note.duration, time, note.velocity)
+                }, midiJson.midiKick.tracks[1].notes);
+                return;
+            case CONST.SYNTH_TYPE_SNARE:
+                SynthLoader.snare = new Tone.Part(function (time, note) {
+                    SynthLoader.getSynth(synthId, fxId).triggerAttackRelease(note.name, note.duration, time, note.velocity)
+                }, midiJson.midiSnare.tracks[1].notes);
+                return;
+            case CONST.SYNTH_TYPE_HAT:
+                SynthLoader.hat = new Tone.Part(function (time, note) {
+                    SynthLoader.getSynth(synthId, fxId).triggerAttackRelease(note.name, note.duration, time, note.velocity)
+                }, midiJson.midiHat.tracks[1].notes);
+                return;
             default:
                 return null;
         }
@@ -45,15 +66,9 @@ const SynthLoader = {
         switch (synthId) {
             case "mel1":
                 var fx = SynthFxLoader.getSynthFx(fxId);
-
-                console.log('MEL ONE', fx)
-
                 return new Tone.Synth().chain(fx[0], fx[1], Tone.Master);
             case "mel2":
                 var fx = SynthFxLoader.getSynthFx(fxId);
-
-                console.log('MEL TWO', fx)
-
                 return new Tone.PluckSynth().chain(fx[0], fx[1], Tone.Master);
             case "hi1":
             case "hi2":
@@ -148,11 +163,28 @@ const SynthLoader = {
                         release: 1
                     }
                 }).chain(fx[0], fx[1], Tone.Master);
+            case "kick1":
+                var fx = SynthFxLoader.getSynthFx(fxId)
+                return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
+            case "kick2":
+                var fx = SynthFxLoader.getSynthFx(fxId)
+                return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
+            case "snare1":
+                var fx = SynthFxLoader.getSynthFx(fxId)
+                return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
+            case "snare2":
+                var fx = SynthFxLoader.getSynthFx(fxId)
+                return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
+            case "hat1":
+                var fx = SynthFxLoader.getSynthFx(fxId)
+                return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
+            case "hat2":
+                var fx = SynthFxLoader.getSynthFx(fxId)
+                return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
             default:
                 return null;
         }
     }, 
-
     // loadSynths(midiJson) {
     //     new Tone.Part(function (time, note) {
     //         // console.log("t1", time)

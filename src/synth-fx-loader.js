@@ -2,14 +2,6 @@ import Tone from 'tone';
 
 const SynthFxLoader = {
     "getSynthFx": (fxName) => {
-
-        console.log('FXNAME', fxName)
-        console.log('FXNAME', fxName)
-        console.log('FXNAME', fxName)
-        console.log('FXNAME', fxName)
-
-
-
         switch(fxName){
             case "melfx1": 
                 var volume = new Tone.Volume(0);
@@ -60,15 +52,29 @@ const SynthFxLoader = {
                 var volume = new Tone.Volume(5);
                 return [pitch, volume];
             case "kickfx1":
-                return [];
+                var volume1 = new Tone.Volume(0);
+                var volume2 = new Tone.Volume(0);
+                return [volume1, volume2];
             case "kickfx2":
-                return [];
+                var volume1 = new Tone.Volume(0);
+                var volume2 = new Tone.Volume(0);
+                return [volume1, volume2];
             case "snarefx1":
-                return [];
-            case "kickfx1":
-                return [];
-            case "kickfx2":
-                return [];
+                var volume1 = new Tone.Volume(0);
+                var volume2 = new Tone.Volume(0);
+                return [volume1, volume2];
+            case "snarefx2":
+                var volume1 = new Tone.Volume(0);
+                var volume2 = new Tone.Volume(0);
+                return [volume1, volume2];
+            case "hatfx1":
+                var volume1 = new Tone.Volume(0);
+                var volume2 = new Tone.Volume(0);
+                return [volume1, volume2];
+            case "hatfx2":
+                var volume1 = new Tone.Volume(0);
+                var volume2 = new Tone.Volume(0);
+                return [volume1, volume2];
             }
     },
 }

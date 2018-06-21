@@ -41,6 +41,24 @@ const StateExtraction = {
                         return synths[i];
                     }
                 }
+            case CONSTS.SYNTH_TYPE_KICK:
+                for (var i = 0; i < synths.length; i++) {
+                    if (synths[i].selected == true) {
+                        return synths[i];
+                    }
+                }
+            case CONSTS.SYNTH_TYPE_SNARE:
+                for (var i = 0; i < synths.length; i++) {
+                    if (synths[i].selected == true) {
+                        return synths[i];
+                    }
+                }
+            case CONSTS.SYNTH_TYPE_HAT:
+                for (var i = 0; i < synths.length; i++) {
+                    if (synths[i].selected == true) {
+                        return synths[i];
+                    }
+                }
         }
 
         return null;

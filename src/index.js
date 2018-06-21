@@ -80,15 +80,15 @@ const store = createStore(
         lowFx: [{"name": "lowfx1", "selected": true, "color": "#42f4a7"}, {"name": "lowfx2", "selected": false, "color": "##7d42f4"}],
     
         hatPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
-        hatSynths: [{"name": "s1", "selected": true, "color": "#42f4a7"}, {"name": "s2", "selected": false, "color": "##7d42f4"}],
+        hatSynths: [{"name": "hat1", "selected": true, "color": "#42f4a7"}, {"name": "hat2", "selected": false, "color": "##7d42f4"}],
         hatFx:      [{"name": "hatfx1", "selected": true, "color": "#42f4a7"}, {"name": "hatfx2", "selected": false, "color": "##7d42f4"}],
     
         snarePattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
-        snareSynths: [{"name": "s1", "selected": true, "color": "#42f4a7"}, {"name": "s2", "selected": false, "color": "##7d42f4"}],
+        snareSynths: [{"name": "snare1", "selected": true, "color": "#42f4a7"}, {"name": "snare2", "selected": false, "color": "##7d42f4"}],
         snareFx:      [{"name": "snarefx1", "selected": true, "color": "#42f4a7"}, {"name": "snarefx2", "selected": false, "color": "##7d42f4"}],
 
         kickPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
-        kickSynths: [{"name": "s1", "selected": true, "color": "#42f4a7"}, {"name": "s2", "selected": false, "color": "##7d42f4"}],
+        kickSynths: [{"name": "kick1", "selected": true, "color": "#42f4a7"}, {"name": "kick2", "selected": false, "color": "##7d42f4"}],
         kickFx:      [{"name": "kickfx1", "selected": true, "color": "#42f4a7"}, {"name": "kickfx2", "selected": false, "color": "##7d42f4"}],
     },
     window.devToolsExtension && window.devToolsExtension()

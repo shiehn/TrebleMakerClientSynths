@@ -26,3 +26,6 @@ export const SYNTH_TYPE_MEL = 'mel';
 export const SYNTH_TYPE_HI = 'hi';
 export const SYNTH_TYPE_MID = 'mid';
 export const SYNTH_TYPE_LOW = 'low';
+export const SYNTH_TYPE_KICK = 'kick';
+export const SYNTH_TYPE_SNARE = 'snare';
+export const SYNTH_TYPE_HAT = 'hat';
