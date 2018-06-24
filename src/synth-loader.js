@@ -18,7 +18,7 @@ const SynthLoader = {
         SynthLoader.low.start();
         SynthLoader.kick.start();
         SynthLoader.snare.start();
-        SynthLoader.hat.start();
+        // SynthLoader.hat.start();
     },
     "load": (type, synthId, fxId, midiJson) => {
         switch (type) {
@@ -65,8 +65,8 @@ const SynthLoader = {
     "getSynth": (synthId, fxId) => {
         switch (synthId) {
             case "mel1":
-                var fx = SynthFxLoader.getSynthFx(fxId);
-                return new Tone.Synth().chain(fx[0], fx[1], Tone.Master);
+                // var fx = SynthFxLoader.getSynthFx(fxId);
+                // return new Tone.Synth().chain(fx[0], fx[1], Tone.Master);
             case "mel2":
                 var fx = SynthFxLoader.getSynthFx(fxId);
                 return new Tone.PluckSynth().chain(fx[0], fx[1], Tone.Master);

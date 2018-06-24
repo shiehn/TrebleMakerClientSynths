@@ -30,7 +30,7 @@ class App extends Component {
     this.state = { width: 0, height: 0 };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
 
-    MidiLoader.loadMidi(midiJson);
+    MidiLoader.getTrackId(midiJson);
   }
 
   componentDidMount() {
@@ -57,168 +57,229 @@ class App extends Component {
 
   render() {
     return (
-      <div className="pageWrapper">
-        <div style={{ width: this.state.width, height: this.state.height * 0.8 }}>
+      <div>
+        <nav></nav>
+        <main>
 
-          <div className="btnRow">
-            <span className="btnSpan">
-              <Button bsStyle="primary" className="notesBtn" onClick={() => this.props.switchPattern(CONSTS.MELODY_PATTERN, this.props.melodyPattern)}>{
-                StateExtractor.getSelectedPattern(this.props.melodyPattern).name + ''
-              }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => {
-                this.props.switchSynth(CONSTS.MELODY_SYNTH, this.props.melodySynths)
-                this.stopAndReloadSynths()
-              }}>
-                {StateExtractor.getSelectedPattern(this.props.melodySynths).name + 'MELODY SyNTH'}
-              </Button>
-              <Button bsStyle="primary" className="fxBtn" onClick={() => {
-                this.props.switchFx(CONSTS.MELODY_FX, this.props.melodyFx)
-                this.stopAndReloadSynths()
-              }}>
-                {StateExtractor.getSelectedPattern(this.props.melodyFx).name + 'MELODY FX'}
-              </Button>
-            </span>
-          </div>
-
-          <div className="btnRow">
-            <span className="btnSpan">
-              <Button bsStyle="primary" className="notesBtn" onClick={() => this.props.switchPattern(CONSTS.HI_PATTERN, this.props.hiPattern)}>{
-                StateExtractor.getSelectedPattern(this.props.hiPattern).selected + 'Hi Notes'
-              }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => {
-                this.props.switchSynth(CONSTS.HI_SYNTH, this.props.hiSynths)
-                this.stopAndReloadSynths()
-              }}>
-                {StateExtractor.getSelectedPattern(this.props.hiSynths).name + 'Hi Synth'}
-              </Button>
-              <Button bsStyle="primary" className="fxBtn" onClick={() => {
-                this.props.switchFx(CONSTS.HI_FX, this.props.hiFx)
-                this.stopAndReloadSynths()
-              }}>
-                {StateExtractor.getSelectedPattern(this.props.hiFx).name + 'HI FX'}
-              </Button>
-            </span>
-          </div>
-
-          <div className="btnRow">
-            <span className="btnSpan">
-              <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.MID_PATTERN, this.props.midPattern, e)}>{
-                StateExtractor.getSelectedPattern(this.props.midPattern).selected + 'Mid Notes'
-              }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => {
-                this.props.switchSynth(CONSTS.MID_SYNTH, this.props.midSynths)
-                this.stopAndReloadSynths()
-              }} >
-                {StateExtractor.getSelectedPattern(this.props.midSynths).name + 'Mid Synth'}
-              </Button>
-              <Button bsStyle="primary" className="fxBtn" onClick={() => {
-                this.props.switchFx(CONSTS.MID_FX, this.props.midFx)
-                this.stopAndReloadSynths()
-              }}>
-                {StateExtractor.getSelectedPattern(this.props.midFx).name + 'MID FX'}
-              </Button>
-            </span>
-          </div>
-
-          <div className="btnRow">
-            <span className="btnSpan">
-              <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.LOW_PATTERN, this.props.lowPattern, e)}>{
-                StateExtractor.getSelectedPattern(this.props.lowPattern).selected + 'Low Notes'
-              }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => {
-                this.props.switchSynth(CONSTS.LOW_SYNTH, this.props.lowSynths)
-                this.stopAndReloadSynths()
-              }} >
-                {StateExtractor.getSelectedPattern(this.props.lowSynths).name + 'Low Synth'}
-              </Button>
-              <Button bsStyle="primary" className="fxBtn" onClick={() => {
-                this.props.switchFx(CONSTS.LOW_FX, this.props.lowFx)
-                this.stopAndReloadSynths()
-              }}>
-                {StateExtractor.getSelectedPattern(this.props.lowFx).name + 'LOW FX'}
-              </Button>
-            </span>
-          </div>
-
-          <div className="btnRow">
-            <span className="btnSpan">
-              <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.KICK_PATTERN, this.props.kickPattern, e)}>{
-                StateExtractor.getSelectedPattern(this.props.kickPattern).selected + 'Kick Pattern'
-              }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => {
-                this.props.switchSynth(CONSTS.KICK_SYNTH, this.props.kickSynths)
-                this.stopAndReloadSynths()
-              }} >
-                {StateExtractor.getSelectedPattern(this.props.kickSynths).name + 'KICK Synth'}
-              </Button>
-              <Button bsStyle="primary" className="fxBtn" onClick={() => {
-                this.props.switchFx(CONSTS.KICK_FX, this.props.kickFx)
-                this.stopAndReloadSynths()
-              }}>
-                {StateExtractor.getSelectedPattern(this.props.kickFx).name + 'KICK FX'}
-              </Button>
-            </span>
-          </div>
-
-          <div className="btnRow">
-            <span className="btnSpan">
-              <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.SNARE_PATTERN, this.props.snarePattern, e)}>{
-                StateExtractor.getSelectedPattern(this.props.snarePattern).selected + 'Snare Pattern'
-              }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => {
-                this.props.switchSynth(CONSTS.SNARE_SYNTH, this.props.snareSynths)
-                this.stopAndReloadSynths()
-              }} >
-                {StateExtractor.getSelectedPattern(this.props.snareSynths).name + 'SNARE Synth'}
-              </Button>
-              <Button bsStyle="primary" className="fxBtn" onClick={() => {
-                this.props.switchFx(CONSTS.SNARE_FX, this.props.snareFx)
-                this.stopAndReloadSynths()
-              }}>
-                {StateExtractor.getSelectedPattern(this.props.snareFx).name + 'SNARE FX'}
-              </Button>
-            </span>
-          </div>
-
-          <div className="btnRow">
-            <span className="btnSpan">
-              <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.HAT_PATTERN, this.props.hatPattern, e)}>{
-                StateExtractor.getSelectedPattern(this.props.hatPattern).selected + 'Hat Pattern'
-              }</Button>
-              <Button bsStyle="primary" className="synthBtn" onClick={() => {
-                this.props.switchSynth(CONSTS.HAT_SYNTH, this.props.hatSynths)
-                this.stopAndReloadSynths()
-              }} >
-                {StateExtractor.getSelectedPattern(this.props.hatSynths).name + 'HAT Synth'}
-              </Button>
-              <Button bsStyle="primary" className="fxBtn" onClick={() => {
-                this.props.switchFx(CONSTS.HAT_FX, this.props.hatFx)
-                this.stopAndReloadSynths()
-              }}>
-                {StateExtractor.getSelectedPattern(this.props.hatFx).name + 'HAT FX'}
-              </Button>
-            </span>
-          </div>
+          <div id='title_wrapper'>TrebleMaker.ai</div>
+          <div id='sub_title_wrapper'>
+            <div id='sub_title'>
+              Generated melodies, arpeggios, <br />chords & basslines
         </div>
+          </div>
 
-        <div className="playControlls" style={{ width: this.state.width, height: this.state.height * 0.2 }}>
-          <span className="payControllsRow">
-            <Button bsStyle="primary" className="playBtn" onClick={this.onUpdatePlayState.bind(this)}>PLAY</Button>
-            <Button bsStyle="primary" className="playBtn" onClick={() => { this.stopIt() }}>STOP</Button>
-            <Button bsStyle="primary" className="refreshBtn">REFRESH</Button>
-          </span>
+          <div id='audio-wrapper' >
+            <audio controls preload="metadata" id='audio-tag' style={{'display': 'none'}} >
+              <source src="" type="audio/mpeg" />
+                   Your browser does not support the audio element.
+            </audio>
+            <div id='refresh-btn-wrapper'>
+              <div id='btn-border' >
+      <span>
+                <i class="fas fa-play control_btns play-btn"></i>
+      </span>
+            <span>
+              <i class="fas fa-stop control_btns stop-btn"></i>
+      </span>
+          <span>
+            <i class="fas fa-random control_btns"></i>
+      </span>
+        <span>
+          <i class="fas fa-download control_btns download-btn"></i>
+      </span>
+    </div >
+
+      <div id='loading-screen' ngIf="shouldShowLoadingScreen" >
+        <div id='loading-centre'>
+          <img src='/assets/img/loading.svg' />
         </div>
-      </div>
-    );
+        </div>
+  </div >
+
+      <div id='info-wrapper' class='info_btns'>
+        <i class="fas fa-info-circle info_btns"></i>
+        <span id='info-txt'>What is this?</span>
+  </div >
+
+      <div id='info-wrapper' class='info_btns'>
+        <a href="https://medium.com/@stevehiehn/how-might-daws-integrate-ai-ml-e08a8f026b5f" target="_blank">
+          <i class="fas fa-info-circle info_btns"></i>
+          <span id='info-txt'>How does this work?</span>
+        </a>
+  </div >
+
+      <video id='video-wrapper' ngIf="showVideo" controls >
+        <source src="https://s3-us-west-2.amazonaws.com/songseeds/treblemaker-instruction.mp4" type="video/mp4"/>
+          Your browser does not support the video tag.
+  </video>
+</div >
+        </main >
+
+      <footer>
+      </footer>
+      </div >);
+    //<div className="pageWrapper">
+    //   <div style={{ width: this.state.width, height: this.state.height * 0.8 }}>
+
+    //     <div className="btnRow">
+    //       <span className="btnSpan">
+    //         <Button bsStyle="primary" className="notesBtn" onClick={() => this.props.switchPattern(CONSTS.MELODY_PATTERN, this.props.melodyPattern)}>{
+    //           StateExtractor.getSelectedPattern(this.props.melodyPattern).name + ''
+    //         }</Button>
+    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
+    //           this.props.switchSynth(CONSTS.MELODY_SYNTH, this.props.melodySynths)
+    //           this.stopAndReloadSynths()
+    //         }}>
+    //           {StateExtractor.getSelectedPattern(this.props.melodySynths).name + 'MELODY SyNTH'}
+    //         </Button>
+    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
+    //           this.props.switchFx(CONSTS.MELODY_FX, this.props.melodyFx)
+    //           this.stopAndReloadSynths()
+    //         }}>
+    //           {StateExtractor.getSelectedPattern(this.props.melodyFx).name + 'MELODY FX'}
+    //         </Button>
+    //       </span>
+    //     </div>
+
+    //     <div className="btnRow">
+    //       <span className="btnSpan">
+    //         <Button bsStyle="primary" className="notesBtn" onClick={() => this.props.switchPattern(CONSTS.HI_PATTERN, this.props.hiPattern)}>{
+    //           StateExtractor.getSelectedPattern(this.props.hiPattern).selected + 'Hi Notes'
+    //         }</Button>
+    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
+    //           this.props.switchSynth(CONSTS.HI_SYNTH, this.props.hiSynths)
+    //           this.stopAndReloadSynths()
+    //         }}>
+    //           {StateExtractor.getSelectedPattern(this.props.hiSynths).name + 'Hi Synth'}
+    //         </Button>
+    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
+    //           this.props.switchFx(CONSTS.HI_FX, this.props.hiFx)
+    //           this.stopAndReloadSynths()
+    //         }}>
+    //           {StateExtractor.getSelectedPattern(this.props.hiFx).name + 'HI FX'}
+    //         </Button>
+    //       </span>
+    //     </div>
+
+    //     <div className="btnRow">
+    //       <span className="btnSpan">
+    //         <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.MID_PATTERN, this.props.midPattern, e)}>{
+    //           StateExtractor.getSelectedPattern(this.props.midPattern).selected + 'Mid Notes'
+    //         }</Button>
+    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
+    //           this.props.switchSynth(CONSTS.MID_SYNTH, this.props.midSynths)
+    //           this.stopAndReloadSynths()
+    //         }} >
+    //           {StateExtractor.getSelectedPattern(this.props.midSynths).name + 'Mid Synth'}
+    //         </Button>
+    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
+    //           this.props.switchFx(CONSTS.MID_FX, this.props.midFx)
+    //           this.stopAndReloadSynths()
+    //         }}>
+    //           {StateExtractor.getSelectedPattern(this.props.midFx).name + 'MID FX'}
+    //         </Button>
+    //       </span>
+    //     </div>
+
+    //     <div className="btnRow">
+    //       <span className="btnSpan">
+    //         <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.LOW_PATTERN, this.props.lowPattern, e)}>{
+    //           StateExtractor.getSelectedPattern(this.props.lowPattern).selected + 'Low Notes'
+    //         }</Button>
+    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
+    //           this.props.switchSynth(CONSTS.LOW_SYNTH, this.props.lowSynths)
+    //           this.stopAndReloadSynths()
+    //         }} >
+    //           {StateExtractor.getSelectedPattern(this.props.lowSynths).name + 'Low Synth'}
+    //         </Button>
+    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
+    //           this.props.switchFx(CONSTS.LOW_FX, this.props.lowFx)
+    //           this.stopAndReloadSynths()
+    //         }}>
+    //           {StateExtractor.getSelectedPattern(this.props.lowFx).name + 'LOW FX'}
+    //         </Button>
+    //       </span>
+    //     </div>
+
+    //     <div className="btnRow">
+    //       <span className="btnSpan">
+    //         <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.KICK_PATTERN, this.props.kickPattern, e)}>{
+    //           StateExtractor.getSelectedPattern(this.props.kickPattern).selected + 'Kick Pattern'
+    //         }</Button>
+    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
+    //           this.props.switchSynth(CONSTS.KICK_SYNTH, this.props.kickSynths)
+    //           this.stopAndReloadSynths()
+    //         }} >
+    //           {StateExtractor.getSelectedPattern(this.props.kickSynths).name + 'KICK Synth'}
+    //         </Button>
+    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
+    //           this.props.switchFx(CONSTS.KICK_FX, this.props.kickFx)
+    //           this.stopAndReloadSynths()
+    //         }}>
+    //           {StateExtractor.getSelectedPattern(this.props.kickFx).name + 'KICK FX'}
+    //         </Button>
+    //       </span>
+    //     </div>
+
+    //     <div className="btnRow">
+    //       <span className="btnSpan">
+    //         <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.SNARE_PATTERN, this.props.snarePattern, e)}>{
+    //           StateExtractor.getSelectedPattern(this.props.snarePattern).selected + 'Snare Pattern'
+    //         }</Button>
+    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
+    //           this.props.switchSynth(CONSTS.SNARE_SYNTH, this.props.snareSynths)
+    //           this.stopAndReloadSynths()
+    //         }} >
+    //           {StateExtractor.getSelectedPattern(this.props.snareSynths).name + 'SNARE Synth'}
+    //         </Button>
+    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
+    //           this.props.switchFx(CONSTS.SNARE_FX, this.props.snareFx)
+    //           this.stopAndReloadSynths()
+    //         }}>
+    //           {StateExtractor.getSelectedPattern(this.props.snareFx).name + 'SNARE FX'}
+    //         </Button>
+    //       </span>
+    //     </div>
+
+    //     <div className="btnRow">
+    //       <span className="btnSpan">
+    //         <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.HAT_PATTERN, this.props.hatPattern, e)}>{
+    //           StateExtractor.getSelectedPattern(this.props.hatPattern).selected + 'Hat Pattern'
+    //         }</Button>
+    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
+    //           this.props.switchSynth(CONSTS.HAT_SYNTH, this.props.hatSynths)
+    //           this.stopAndReloadSynths()
+    //         }} >
+    //           {StateExtractor.getSelectedPattern(this.props.hatSynths).name + 'HAT Synth'}
+    //         </Button>
+    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
+    //           this.props.switchFx(CONSTS.HAT_FX, this.props.hatFx)
+    //           this.stopAndReloadSynths()
+    //         }}>
+    //           {StateExtractor.getSelectedPattern(this.props.hatFx).name + 'HAT FX'}
+    //         </Button>
+    //       </span>
+    //     </div>
+    //   </div>
+
+    //   <div className="playControlls" style={{ width: this.state.width, height: this.state.height * 0.2 }}>
+    //     <span className="payControllsRow">
+    //       <Button bsStyle="primary" className="playBtn" onClick={this.onUpdatePlayState.bind(this)}>PLAY</Button>
+    //       <Button bsStyle="primary" className="playBtn" onClick={() => { this.stopIt() }}>STOP</Button>
+    //       <Button bsStyle="primary" className="refreshBtn">REFRESH</Button>
+    //     </span>
+    //   </div>
+    //</div>
+    //);
   }
 
   stopIt() {
     Tone.Transport.stop();
-    Tone.Transport.bpm.value = 120
+    // Tone.Transport.bpm.value = 120
   }
 
   begin() {
-    Tone.Transport.bpm.value = 70
+    // Tone.Transport.bpm.value = 70
     Tone.Transport.start()
   }
 
@@ -274,7 +335,7 @@ class App extends Component {
       StateExtractor.getSelectedSynthFx(this.props.snareFx).name,
       midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_HAT,
-      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_HAT, this.props.hatSynths).name, 
+      StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_HAT, this.props.hatSynths).name,
       StateExtractor.getSelectedSynthFx(this.props.hatFx).name,
       midiJson)
 
