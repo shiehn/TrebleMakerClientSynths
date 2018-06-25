@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Tone from 'tone';
 import MidiLoader from './midi-loader'
 import { updatePlayState } from './actions/playstate-actions';
+import { updateShowVideo } from './actions/showvideo-actions';
 import { switchPattern } from './actions/pattern-actions';
 import { switchSynth } from './actions/synth-actions';
 import { switchFx } from './actions/fx-actions';
@@ -13,6 +14,7 @@ import * as CONSTS from './consts';
 import { bindActionCreators } from 'redux';
 import SynthLoader from './synth-loader';
 import StateExtractor from './state-extractor';
+import showVideoReducer from './reducers/showvideo-reducer';
 
 var midiJson = {
   midiMel: null,
@@ -55,6 +57,10 @@ class App extends Component {
     this.begin();
   }
 
+  onUpdateShowVideo() { 
+    this.props.onUpdateShowVideo(!this.props.showVideo);
+  }
+
   render() {
     return (
       <div>
@@ -69,54 +75,54 @@ class App extends Component {
           </div>
 
           <div id='audio-wrapper' >
-            <audio controls preload="metadata" id='audio-tag' style={{'display': 'none'}} >
+            <audio controls preload="metadata" id='audio-tag' style={{ 'display': 'none' }} >
               <source src="" type="audio/mpeg" />
-                   Your browser does not support the audio element.
+              Your browser does not support the audio element.
             </audio>
             <div id='refresh-btn-wrapper'>
               <div id='btn-border' >
-      <span>
-                <i class="fas fa-play control_btns play-btn"></i>
-      </span>
-            <span>
-              <i class="fas fa-stop control_btns stop-btn"></i>
-      </span>
-          <span>
-            <i class="fas fa-random control_btns"></i>
-      </span>
-        <span>
-          <i class="fas fa-download control_btns download-btn"></i>
-      </span>
-    </div >
+                <span>
+                  <i class="fas fa-play control_btns play-btn" onClick={(e) => this.stopAndReloadSynths()}></i>
+                </span>
+                <span>
+                  <i class="fas fa-stop control_btns stop-btn" onClick={(e) => this.stopIt()}></i>
+                </span>
+                <span>
+                  <i class="fas fa-random control_btns" onClick={(e) => this.stopIt()}></i>
+                </span>
+                <span>
+                  <i class="fas fa-download control_btns download-btn"></i>
+                </span>
+              </div>
 
-      <div id='loading-screen' ngIf="shouldShowLoadingScreen" >
-        <div id='loading-centre'>
-          <img src='/assets/img/loading.svg' />
-        </div>
-        </div>
-  </div >
+              <div id='loading-screen'>
+                <div id='loading-centre'>
+                  <img src='/assets/img/loading.svg' />
+                </div>
+              </div>
+            </div >
 
-      <div id='info-wrapper' class='info_btns'>
-        <i class="fas fa-info-circle info_btns"></i>
-        <span id='info-txt'>What is this?</span>
-  </div >
+            <div id='info-wrapper' class='info_btns' onClick={(e) => { this.onUpdateShowVideo()}}>
+              <i class="fas fa-info-circle info_btns"></i>
+              <span id='info-txt'>What is this?</span>
+            </div >
 
-      <div id='info-wrapper' class='info_btns'>
-        <a href="https://medium.com/@stevehiehn/how-might-daws-integrate-ai-ml-e08a8f026b5f" target="_blank">
-          <i class="fas fa-info-circle info_btns"></i>
-          <span id='info-txt'>How does this work?</span>
-        </a>
-  </div >
-
-      <video id='video-wrapper' ngIf="showVideo" controls >
-        <source src="https://s3-us-west-2.amazonaws.com/songseeds/treblemaker-instruction.mp4" type="video/mp4"/>
-          Your browser does not support the video tag.
+            <div id='info-wrapper' class='info_btns'>
+              <a href="https://medium.com/@stevehiehn/how-might-daws-integrate-ai-ml-e08a8f026b5f" target="_blank">
+                <i class="fas fa-info-circle info_btns"></i>
+                <span id='info-txt'>How does this work?</span>
+              </a>
+            </div >
+{this.props.showVideo + ""}
+            <video id='video-wrapper' style={this.props.showVideo ? { display: 'block' } : { display: 'none' }} controls >
+              <source src="https://s3-us-west-2.amazonaws.com/songseeds/treblemaker-instruction.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
   </video>
-</div >
+          </div >
         </main >
 
-      <footer>
-      </footer>
+        <footer>
+        </footer>
       </div >);
     //<div className="pageWrapper">
     //   <div style={{ width: this.state.width, height: this.state.height * 0.8 }}>
@@ -350,6 +356,7 @@ const mapStateToProps = (state) => {
     // products: state.products,
     // user: state.user,
     playState: state.playState,
+    showVideo: state.showVideo,
     melodyPattern: state.melodyPattern,
     hiPattern: state.hiPattern,
     midPattern: state.midPattern,
@@ -379,6 +386,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     onUpdatePlayState: updatePlayState,
+    onUpdateShowVideo: updateShowVideo,
     switchPattern: switchPattern,
     switchSynth: switchSynth,
     switchFx: switchFx,
