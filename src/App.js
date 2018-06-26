@@ -6,15 +6,14 @@ import Tone from 'tone';
 import MidiLoader from './midi-loader'
 import { updatePlayState } from './actions/playstate-actions';
 import { updateShowVideo } from './actions/showvideo-actions';
+import { updateShowLoading } from './actions/showloading-actions';
 import { switchPattern } from './actions/pattern-actions';
 import { switchSynth } from './actions/synth-actions';
-import { switchFx } from './actions/fx-actions';
-import { Button } from 'react-bootstrap';
+import { switchFx } from './actions/fx-actions'; 
 import * as CONSTS from './consts';
 import { bindActionCreators } from 'redux';
 import SynthLoader from './synth-loader';
-import StateExtractor from './state-extractor';
-import showVideoReducer from './reducers/showvideo-reducer';
+import StateExtractor from './state-extractor'; 
 
 var midiJson = {
   midiMel: null,
@@ -31,8 +30,12 @@ class App extends Component {
     super(props);
     this.state = { width: 0, height: 0 };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.reloadMidi();
+  }
 
+  reloadMidi(){
     MidiLoader.getTrackId(midiJson);
+    setTimeout(this.onUpdateShowLoading, 2000, this)
   }
 
   componentDidMount() {
@@ -57,8 +60,12 @@ class App extends Component {
     this.begin();
   }
 
-  onUpdateShowVideo() { 
+  onUpdateShowVideo() {
     this.props.onUpdateShowVideo(!this.props.showVideo);
+  }
+
+  onUpdateShowLoading(context){
+    context.props.onUpdateShowLoading(!context.props.showLoading);
   }
 
   render() {
@@ -79,8 +86,8 @@ class App extends Component {
               <source src="" type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
-            <div id='refresh-btn-wrapper'>
-              <div id='btn-border' >
+            <div id='refresh-btn-wrapper' >
+              <div id='btn-border' style={this.props.showLoading ? { display: 'none' } : { display: '' }} >
                 <span>
                   <i class="fas fa-play control_btns play-btn" onClick={(e) => this.stopAndReloadSynths()}></i>
                 </span>
@@ -95,14 +102,14 @@ class App extends Component {
                 </span>
               </div>
 
-              <div id='loading-screen'>
+              <div id='loading-screen' style={this.props.showLoading ? { display: '' } : { display: 'none' }}>
                 <div id='loading-centre'>
-                  <img src='/assets/img/loading.svg' />
+                  <img src='/loading.svg' />
                 </div>
               </div>
             </div >
 
-            <div id='info-wrapper' class='info_btns' onClick={(e) => { this.onUpdateShowVideo()}}>
+            <div id='info-wrapper' class='info_btns' onClick={(e) => { this.onUpdateShowVideo() }}>
               <i class="fas fa-info-circle info_btns"></i>
               <span id='info-txt'>What is this?</span>
             </div >
@@ -113,7 +120,7 @@ class App extends Component {
                 <span id='info-txt'>How does this work?</span>
               </a>
             </div >
-{this.props.showVideo + ""}
+            {this.props.showVideo + ""}
             <video id='video-wrapper' style={this.props.showVideo ? { display: 'block' } : { display: 'none' }} controls >
               <source src="https://s3-us-west-2.amazonaws.com/songseeds/treblemaker-instruction.mp4" type="video/mp4" />
               Your browser does not support the video tag.
@@ -357,6 +364,7 @@ const mapStateToProps = (state) => {
     // user: state.user,
     playState: state.playState,
     showVideo: state.showVideo,
+    showLoading: state.showLoading,
     melodyPattern: state.melodyPattern,
     hiPattern: state.hiPattern,
     midPattern: state.midPattern,
@@ -387,6 +395,7 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     onUpdatePlayState: updatePlayState,
     onUpdateShowVideo: updateShowVideo,
+    onUpdateShowLoading: updateShowLoading,
     switchPattern: switchPattern,
     switchSynth: switchSynth,
     switchFx: switchFx,

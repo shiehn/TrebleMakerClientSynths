@@ -31,10 +31,12 @@ import fxKickReducer from './reducers/fx/fx-kick-reducer';
 import fxSnareReducer from './reducers/fx/fx-snare-reducer';
 import fxHatReducer from './reducers/fx/fx-hat-reducer';
 import showVideoReducer from './reducers/showvideo-reducer';
+import showLoadingReducer from './reducers/showloading-reducer';
 
 const allReducers = combineReducers({
     playState: playStateReducer,
     showVideo: showVideoReducer,
+    showLoading: showLoadingReducer,
 
     melodyPattern: patternMelodyReducer,
     hiPattern: patternHiReducer,
@@ -64,8 +66,8 @@ const allReducers = combineReducers({
 const store = createStore(
     allReducers, { 
         playState: false,
-
         showVideo: false,
+        showLoading: true,
         
         melodyPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
         melodySynths: [{"name": "mel1", "selected": true, "color": "#42f4a7"}, {"name": "mel2", "selected": false, "color": "##7d42f4"}],

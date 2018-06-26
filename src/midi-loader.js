@@ -17,7 +17,7 @@ const MidiLoader = {
         //     "stationId": 2
         //     }
     },  
-    loadMidi(midiJson, trackId) {
+    loadMidi(midiJson, trackId) { 
         /*
         load("/0compmelodic.mid", function (midi) {
             midiJson.midiMel = midi;
@@ -61,6 +61,7 @@ const MidiLoader = {
         load("/hat-test.mid", function (midi) {
             midiJson.midiHat = midi;
             console.log('MIIIDDDIII', midiJson)
+            //callback.onUpdateShowVideo();
         })
 
         return true;
