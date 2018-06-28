@@ -1,13 +1,13 @@
 import { load } from 'midiconvert';
 
 const MidiLoader = {
-    getTrackId(midiJson){
-        fetch('http://34.218.69.131:7777/api/track')
+    getTrackId(SERVER_ENDPOINT, midiJson){
+        fetch(SERVER_ENDPOINT)
         .then(function(response) {
             return response.json()
         }).then(function(json) {
             console.log('MY ID', json.name)
-            MidiLoader.loadMidi(midiJson, '9069d0ec-836d-477f-a6f7-7f567bc2fcfa')
+            MidiLoader.loadMidi(midiJson, json.name)
         });
 
 

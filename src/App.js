@@ -9,11 +9,11 @@ import { updateShowVideo } from './actions/showvideo-actions';
 import { updateShowLoading } from './actions/showloading-actions';
 import { switchPattern } from './actions/pattern-actions';
 import { switchSynth } from './actions/synth-actions';
-import { switchFx } from './actions/fx-actions'; 
+import { switchFx } from './actions/fx-actions';
 import * as CONSTS from './consts';
 import { bindActionCreators } from 'redux';
 import SynthLoader from './synth-loader';
-import StateExtractor from './state-extractor'; 
+import StateExtractor from './state-extractor';
 
 var midiJson = {
   midiMel: null,
@@ -25,6 +25,12 @@ var midiJson = {
   midiHat: null,
 };
 
+//docker build --build-arg TMW_NEXT_TRACK_URL="http:\/\/localhost:7777\/api\/track" --build-arg TMW_S3_BUCKET="https:\/\/s3-us-west-2.amazonaws.com\/[YOUR-BUCKET-NAME]\/" --no-cache -t treblemakerweb .
+
+var SERVER_ENDPOINT = 'xoxoxoxoxoxoxoxoxoxoxo';
+var CDN = 'yoyoyoyoyoyoyoyoyoyoyo';
+var TRACK_ID = '';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -33,9 +39,9 @@ class App extends Component {
     this.reloadMidi();
   }
 
-  reloadMidi(){
-    MidiLoader.getTrackId(midiJson);
-    setTimeout(this.onUpdateShowLoading, 2000, this)
+  reloadMidi() {
+    MidiLoader.getTrackId(this.SERVER_ENDPOINT, midiJson);
+    setTimeout(this.onUpdateShowLoading, 2000, this, false)
   }
 
   componentDidMount() {
@@ -64,8 +70,12 @@ class App extends Component {
     this.props.onUpdateShowVideo(!this.props.showVideo);
   }
 
-  onUpdateShowLoading(context){
-    context.props.onUpdateShowLoading(!context.props.showLoading);
+  onUpdateShowLoading(context, showLoading) {
+    context.props.onUpdateShowLoading(showLoading);
+  }
+
+  onDownLoadTar() {
+    window.location.href = this.CDN + this.TRACK_ID + '.tar';
   }
 
   render() {
@@ -80,7 +90,6 @@ class App extends Component {
               Generated melodies, arpeggios, <br />chords & basslines
         </div>
           </div>
-
           <div id='audio-wrapper' >
             <audio controls preload="metadata" id='audio-tag' style={{ 'display': 'none' }} >
               <source src="" type="audio/mpeg" />
@@ -95,10 +104,10 @@ class App extends Component {
                   <i class="fas fa-stop control_btns stop-btn" onClick={(e) => this.stopIt()}></i>
                 </span>
                 <span>
-                  <i class="fas fa-random control_btns" onClick={(e) => this.stopIt()}></i>
+                  <i class="fas fa-random control_btns" onClick={(e) => this.stopRefreshAndLoadSynths()}></i>
                 </span>
                 <span>
-                  <i class="fas fa-download control_btns download-btn"></i>
+                  <i class="fas fa-download control_btns download-btn" onClick={(e) => this.onDownLoadTar()}></i>
                 </span>
               </div>
 
@@ -109,19 +118,19 @@ class App extends Component {
               </div>
             </div >
 
-            <div id='info-wrapper' class='info_btns' onClick={(e) => { this.onUpdateShowVideo() }}>
+            <div id='info-wrapper' class='info_btns' style={this.props.showLoading ? { display: '' } : { display: 'none' }} onClick={(e) => { this.onUpdateShowVideo() }}>
               <i class="fas fa-info-circle info_btns"></i>
               <span id='info-txt'>What is this?</span>
             </div >
 
-            <div id='info-wrapper' class='info_btns'>
+            <div id='info-wrapper' class='info_btns' style={this.props.showLoading ? { display: 'none' } : { display: '' }}>
               <a href="https://medium.com/@stevehiehn/how-might-daws-integrate-ai-ml-e08a8f026b5f" target="_blank">
                 <i class="fas fa-info-circle info_btns"></i>
                 <span id='info-txt'>How does this work?</span>
               </a>
             </div >
-            {this.props.showVideo + ""}
-            <video id='video-wrapper' style={this.props.showVideo ? { display: 'block' } : { display: 'none' }} controls >
+
+            <video id='video-wrapper' style={this.props.showVideo ? { display: '' } : { display: 'none' }} controls >
               <source src="https://s3-us-west-2.amazonaws.com/songseeds/treblemaker-instruction.mp4" type="video/mp4" />
               Your browser does not support the video tag.
   </video>
@@ -296,9 +305,14 @@ class App extends Component {
     Tone.Transport.start()
   }
 
+  stopRefreshAndLoadSynths() {
+    this.props.onUpdateShowLoading(true);
+    this.stopIt();
+    this.reloadMidi();
+  }
+
   stopAndReloadSynths() {
     this.stopIt();
-
     if (SynthLoader.mel) {
       SynthLoader.mel.dispose();
     }
