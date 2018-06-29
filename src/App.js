@@ -26,10 +26,13 @@ var midiJson = {
 };
 
 //docker build --build-arg TMW_NEXT_TRACK_URL="http:\/\/localhost:7777\/api\/track" --build-arg TMW_S3_BUCKET="https:\/\/s3-us-west-2.amazonaws.com\/[YOUR-BUCKET-NAME]\/" --no-cache -t treblemakerweb .
+//docker build --build-arg TMW_NEXT_TRACK_URL="http:\/\/34.218.69.131:7777\/api\/track" --build-arg TMW_S3_BUCKET="https:\/\/s3-us-west-2.amazonaws.com\/songseeds\/" --no-cache -t treblemakerweb .
 
-var SERVER_ENDPOINT = 'xoxoxoxoxoxoxoxoxoxoxo';
-var CDN = 'yoyoyoyoyoyoyoyoyoyoyo';
-var TRACK_ID = '';
+//var SERVER_ENDPOINT = 'xoxoxoxoxoxoxoxoxoxoxo';
+//var CDN = 'yoyoyoyoyoyoyoyoyoyoyo';
+var SERVER_ENDPOINT = 'http://34.218.69.131:7777/api/track';
+var CDN = 'https://s3-us-west-2.amazonaws.com/songseeds/';
+var TRACK = { id:'' };
 
 class App extends Component {
   constructor(props) {
@@ -40,7 +43,10 @@ class App extends Component {
   }
 
   reloadMidi() {
-    MidiLoader.getTrackId(this.SERVER_ENDPOINT, midiJson);
+    console.log('AAAAAAAAAAAAAAA SERVER', SERVER_ENDPOINT)
+    console.log('AAAAAAAAAAAAAAA TRACK ID', TRACK.id)
+
+    MidiLoader.getTrackId(SERVER_ENDPOINT, TRACK, midiJson);
     setTimeout(this.onUpdateShowLoading, 2000, this, false)
   }
 
@@ -75,7 +81,7 @@ class App extends Component {
   }
 
   onDownLoadTar() {
-    window.location.href = this.CDN + this.TRACK_ID + '.tar';
+    window.location.href = CDN + TRACK.id + '.tar';
   }
 
   render() {
@@ -83,7 +89,6 @@ class App extends Component {
       <div>
         <nav></nav>
         <main>
-
           <div id='title_wrapper'>TrebleMaker.ai</div>
           <div id='sub_title_wrapper'>
             <div id='sub_title'>
@@ -118,12 +123,12 @@ class App extends Component {
               </div>
             </div >
 
-            <div id='info-wrapper' class='info_btns' style={this.props.showLoading ? { display: '' } : { display: 'none' }} onClick={(e) => { this.onUpdateShowVideo() }}>
+            <div id='info-wrapper' class='info_btns' style={this.props.showVideo ? { display: 'none' } : { display: '' }} onClick={(e) => { this.onUpdateShowVideo() }}>
               <i class="fas fa-info-circle info_btns"></i>
               <span id='info-txt'>What is this?</span>
             </div >
 
-            <div id='info-wrapper' class='info_btns' style={this.props.showLoading ? { display: 'none' } : { display: '' }}>
+            <div id='info-wrapper' class='info_btns' style={this.props.showVideo ? { display: '' } : { display: 'none' }}>
               <a href="https://medium.com/@stevehiehn/how-might-daws-integrate-ai-ml-e08a8f026b5f" target="_blank">
                 <i class="fas fa-info-circle info_btns"></i>
                 <span id='info-txt'>How does this work?</span>

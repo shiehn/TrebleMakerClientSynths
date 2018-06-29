@@ -1,12 +1,16 @@
 import { load } from 'midiconvert';
 
 const MidiLoader = {
-    getTrackId(SERVER_ENDPOINT, midiJson){
+    getTrackId(SERVER_ENDPOINT, TRACK, midiJson){
+
+        console.log('ID A', TRACK.id)
+
         fetch(SERVER_ENDPOINT)
-        .then(function(response) {
+        .then(function(response) { 
             return response.json()
-        }).then(function(json) {
-            console.log('MY ID', json.name)
+        }).then(function(json) { 
+            TRACK.id = json.name;
+            console.log('ID D', TRACK.id)
             MidiLoader.loadMidi(midiJson, json.name)
         });
 
