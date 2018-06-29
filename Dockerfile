@@ -1,8 +1,4 @@
-from ubuntu:bionic
-
-RUN apt-get update -y && \
-    apt-get install -y nodejs && \
-    apt-get install -y npm
+FROM node:7.8.0
 
 ADD . /TrebleMakerClientSynths
 

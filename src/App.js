@@ -27,6 +27,7 @@ var midiJson = {
 
 //docker build --build-arg TMW_NEXT_TRACK_URL="http:\/\/localhost:7777\/api\/track" --build-arg TMW_S3_BUCKET="https:\/\/s3-us-west-2.amazonaws.com\/[YOUR-BUCKET-NAME]\/" --no-cache -t treblemakerweb .
 //docker build --build-arg TMW_NEXT_TRACK_URL="http:\/\/34.218.69.131:7777\/api\/track" --build-arg TMW_S3_BUCKET="https:\/\/s3-us-west-2.amazonaws.com\/songseeds\/" --no-cache -t treblemakerweb .
+//docker run -p 80:3000 treblemakerweb
 
 //var SERVER_ENDPOINT = 'xoxoxoxoxoxoxoxoxoxoxo';
 //var CDN = 'yoyoyoyoyoyoyoyoyoyoyo';
