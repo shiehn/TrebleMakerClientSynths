@@ -4,7 +4,8 @@ ADD . /TrebleMakerClientSynths
 
 WORKDIR /TrebleMakerClientSynths
 
-RUN npm install -g
+RUN npm install -g -y
+RUN npm update -g -y
 
 ARG TMW_NEXT_TRACK_URL="xxx"
 ARG TMW_S3_BUCKET="yyy"
