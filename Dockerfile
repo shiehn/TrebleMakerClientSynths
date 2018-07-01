@@ -1,4 +1,4 @@
-FROM node:7.8.0
+FROM node:10.5.0
 
 ADD . /TrebleMakerClientSynths
 

@@ -318,6 +318,10 @@ class App extends Component {
   }
 
   stopAndReloadSynths() {
+    if(!TRACK.id){
+      this.reloadMidi();
+    }
+
     this.stopIt();
     if (SynthLoader.mel) {
       SynthLoader.mel.dispose();
