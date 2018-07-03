@@ -20,59 +20,58 @@ const SynthLoader = {
         SynthLoader.snare.start();
         // SynthLoader.hat.start();
     },
-    "load": (type, synthId, fxId, midiJson) => {
+    "load": (type, synthId, fxId, bpm, midiJson) => {
         switch (type) {
             case CONST.SYNTH_TYPE_MEL:
                 SynthLoader.mel = new Tone.Part(function (time, note) {
-                    console.log('FX ID', fxId)
-                    SynthLoader.getSynth(synthId, fxId).triggerAttackRelease(note.name, note.duration, time, note.velocity)
+                    SynthLoader.getSynth(synthId, fxId, bpm).triggerAttackRelease(note.name, note.duration, time, note.velocity)
                 }, midiJson.midiMel.tracks[0].notes);
                 return;
             case CONST.SYNTH_TYPE_HI:
                 SynthLoader.hi = new Tone.Part(function (time, note) {
-                    SynthLoader.getSynth(synthId, fxId).triggerAttackRelease(note.name, note.duration, time, note.velocity)
+                    SynthLoader.getSynth(synthId, fxId, bpm).triggerAttackRelease(note.name, note.duration, time, note.velocity)
                 }, midiJson.midiHi.tracks[0].notes);
                 return;
             case CONST.SYNTH_TYPE_MID:
                 SynthLoader.mid = new Tone.Part(function (time, note) {
-                    SynthLoader.getSynth(synthId, fxId).triggerAttackRelease(note.name, note.duration, time, note.velocity)
+                    SynthLoader.getSynth(synthId, fxId, bpm).triggerAttackRelease(note.name, note.duration, time, note.velocity)
                 }, midiJson.midiMid.tracks[0].notes);
                 return;
             case CONST.SYNTH_TYPE_LOW:
                 SynthLoader.low = new Tone.Part(function (time, note) {
-                    SynthLoader.getSynth(synthId, fxId).triggerAttackRelease(note.name, note.duration, time, note.velocity)
+                    SynthLoader.getSynth(synthId, fxId, bpm).triggerAttackRelease(note.name, note.duration, time, note.velocity)
                 }, midiJson.midiLow.tracks[0].notes);
                 return;
             case CONST.SYNTH_TYPE_KICK:
                 SynthLoader.kick = new Tone.Part(function (time, note) {
-                    SynthLoader.getSynth(synthId, fxId).triggerAttackRelease(note.name, note.duration, time, note.velocity)
+                    SynthLoader.getSynth(synthId, fxId, bpm).triggerAttackRelease(note.name, note.duration, time, note.velocity)
                 }, midiJson.midiKick.tracks[1].notes);
                 return;
             case CONST.SYNTH_TYPE_SNARE:
                 SynthLoader.snare = new Tone.Part(function (time, note) {
-                    SynthLoader.getSynth(synthId, fxId).triggerAttackRelease(note.name, note.duration, time, note.velocity)
+                    SynthLoader.getSynth(synthId, fxId, bpm).triggerAttackRelease(note.name, note.duration, time, note.velocity)
                 }, midiJson.midiSnare.tracks[1].notes);
                 return;
             case CONST.SYNTH_TYPE_HAT:
                 SynthLoader.hat = new Tone.Part(function (time, note) {
-                    SynthLoader.getSynth(synthId, fxId).triggerAttackRelease(note.name, note.duration, time, note.velocity)
+                    SynthLoader.getSynth(synthId, fxId, bpm).triggerAttackRelease(note.name, note.duration, time, note.velocity)
                 }, midiJson.midiHat.tracks[1].notes);
                 return;
             default:
                 return null;
         }
     },
-    "getSynth": (synthId, fxId) => {
+    "getSynth": (synthId, fxId, bpm) => {
         switch (synthId) {
             case "mel1":
                 // var fx = SynthFxLoader.getSynthFx(fxId);
                 // return new Tone.Synth().chain(fx[0], fx[1], Tone.Master);
             case "mel2":
-                var fx = SynthFxLoader.getSynthFx(fxId);
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.PluckSynth().chain(fx[0], fx[1], Tone.Master);
             case "hi1":
             case "hi2":
-                var fx = SynthFxLoader.getSynthFx(fxId);
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.Synth({
                     oscillator: {
                         type: 'sine'
@@ -85,7 +84,7 @@ const SynthLoader = {
                     }
                 }).chain(fx[0], Tone.Master);
             case "mid1":
-                var fx = SynthFxLoader.getSynthFx(fxId);
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.FMSynth({
                     harmonicity: 0,
                     modulationIndex: 0,
@@ -111,7 +110,7 @@ const SynthLoader = {
                 }
                 ).chain(fx[0], Tone.Master);
             case "mid2": 
-                var fx = SynthFxLoader.getSynthFx(fxId);
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.FMSynth({
                     harmonicity: 7,
                     modulationIndex: 3,
@@ -138,7 +137,7 @@ const SynthLoader = {
                 ).chain(fx[0], Tone.Master);
 
             case "low1":
-                var fx = SynthFxLoader.getSynthFx(fxId);
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.Synth({
                     oscillator: {
                         type: 'sine',
@@ -151,7 +150,7 @@ const SynthLoader = {
                     }
                 }).chain(fx[0], fx[1], Tone.Master);
             case "low2":
-                var fx = SynthFxLoader.getSynthFx(fxId)
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.Synth({
                     oscillator: {
                         type: 'triangle',
@@ -164,22 +163,22 @@ const SynthLoader = {
                     }
                 }).chain(fx[0], fx[1], Tone.Master);
             case "kick1":
-                var fx = SynthFxLoader.getSynthFx(fxId)
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
             case "kick2":
-                var fx = SynthFxLoader.getSynthFx(fxId)
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
             case "snare1":
-                var fx = SynthFxLoader.getSynthFx(fxId)
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
             case "snare2":
-                var fx = SynthFxLoader.getSynthFx(fxId)
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
             case "hat1":
-                var fx = SynthFxLoader.getSynthFx(fxId)
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
             case "hat2":
-                var fx = SynthFxLoader.getSynthFx(fxId)
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
             default:
                 return null;

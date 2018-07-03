@@ -8,10 +8,11 @@ const MidiLoader = {
         fetch(SERVER_ENDPOINT)
         .then(function(response) { 
             return response.json()
-        }).then(function(json) { 
+        }).then(function(json) {
+            console.log('MIDI_JSON', json.midiMel); 
             TRACK.id = json.name;
             console.log('ID D', TRACK.id)
-            MidiLoader.loadMidi(midiJson, json.name)
+            MidiLoader.loadMidi(midiJson, json.name, TRACK)
         });
 
 
@@ -21,7 +22,7 @@ const MidiLoader = {
         //     "stationId": 2
         //     }
     },  
-    loadMidi(midiJson, trackId) { 
+    loadMidi(midiJson, trackId, TRACK) { 
         /*
         load("/0compmelodic.mid", function (midi) {
             midiJson.midiMel = midi;
@@ -45,6 +46,9 @@ const MidiLoader = {
 
         load("https://s3-us-west-2.amazonaws.com/songseeds/" + trackId + "/0comphi.mid", function (midi) {
             midiJson.midiHi = midi;
+            TRACK.bpm = midiJson.midiHi.header.bpm;
+            console.log('MIIIDDDIII_NEW2', midiJson)
+            console.log('BPM', midiJson.midiHi.header.bpm)
         })
 
         load("https://s3-us-west-2.amazonaws.com/songseeds/" + trackId + "/0compmid.mid", function (midi) {
@@ -64,7 +68,7 @@ const MidiLoader = {
         
         load("/hat-test.mid", function (midi) {
             midiJson.midiHat = midi;
-            console.log('MIIIDDDIII', midiJson)
+            
             //callback.onUpdateShowVideo();
         })
 

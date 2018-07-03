@@ -31,7 +31,11 @@ var midiJson = {
 
 var SERVER_ENDPOINT = 'xoxoxoxoxoxoxoxoxoxoxo';
 var CDN = 'yoyoyoyoyoyoyoyoyoyoyo';
-var TRACK = { id:'' };
+
+
+
+
+var TRACK = { id:'', bpm: 0 };
 
 class App extends Component {
   constructor(props) {
@@ -301,11 +305,9 @@ class App extends Component {
 
   stopIt() {
     Tone.Transport.stop();
-    // Tone.Transport.bpm.value = 120
   }
 
   begin() {
-    // Tone.Transport.bpm.value = 70
     Tone.Transport.start()
   }
 
@@ -316,6 +318,8 @@ class App extends Component {
   }
 
   stopAndReloadSynths() {
+    Tone.Transport.bpm.value = 120
+    
     if(!TRACK.id){
       this.reloadMidi();
     }
@@ -348,32 +352,40 @@ class App extends Component {
     SynthLoader.load(CONSTS.SYNTH_TYPE_MEL,
       StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MEL, this.props.melodySynths).name,
       StateExtractor.getSelectedSynthFx(this.props.melodyFx).name,
+      TRACK.bpm,
       midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_HI,
       StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_HI, this.props.hiSynths).name,
       StateExtractor.getSelectedSynthFx(this.props.hiFx).name,
+      TRACK.bpm,
       midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_MID,
       StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MID, this.props.midSynths).name,
       StateExtractor.getSelectedSynthFx(this.props.midFx).name,
+      TRACK.bpm,
       midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_LOW,
       StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_LOW, this.props.lowSynths).name,
       StateExtractor.getSelectedSynthFx(this.props.lowFx).name,
+      TRACK.bpm,
       midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_KICK,
       StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_KICK, this.props.kickSynths).name,
       StateExtractor.getSelectedSynthFx(this.props.kickFx).name,
+      TRACK.bpm,
       midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_SNARE,
       StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_SNARE, this.props.snareSynths).name,
       StateExtractor.getSelectedSynthFx(this.props.snareFx).name,
+      TRACK.bpm,
       midiJson)
     SynthLoader.load(CONSTS.SYNTH_TYPE_HAT,
       StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_HAT, this.props.hatSynths).name,
       StateExtractor.getSelectedSynthFx(this.props.hatFx).name,
+      TRACK.bpm,
       midiJson)
-
+    
+    Tone.Transport.bpm.value = TRACK.bpm
     SynthLoader.startAll();
 
     this.begin();

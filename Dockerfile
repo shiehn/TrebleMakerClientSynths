@@ -14,4 +14,3 @@ RUN sed -i -e "s/xoxoxoxoxoxoxoxoxoxoxo/${TMW_NEXT_TRACK_URL}/g" src/App.js
 RUN sed -i -e "s/yoyoyoyoyoyoyoyoyoyoyo/${TMW_S3_BUCKET}/g" src/App.js
 
 CMD ["npm", "start"]
-

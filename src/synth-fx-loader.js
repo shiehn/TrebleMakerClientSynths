@@ -1,7 +1,8 @@
-import Tone from 'tone'; 
+import Tone from 'tone';
+import SynthFxUtils from './synth-fx-utils'; 
 
 const SynthFxLoader = {
-    "getSynthFx": (fxName) => {
+    "getSynthFx": (fxName, bpm) => {
         switch(fxName){
             case "melfx1": 
                 var volume = new Tone.Volume(0);
@@ -17,21 +18,21 @@ const SynthFxLoader = {
             
                 return [volume, reverb];
             case "hifx1":
-                var pitch = new Tone.PingPongDelay({
-                    delayTime: 0.25,
+                var delay = new Tone.PingPongDelay({
+                    delayTime: SynthFxUtils.getEightNote(bpm),
                     maxDelayTime: 2,
                 });
                 var bits = new Tone.BitCrusher(4)
                 
-                return [pitch, bits];
+                return [delay, bits];
             case "hifx2":
-                var pitch = new Tone.PingPongDelay({
-                    delayTime: 0.25,
+                var delay = new Tone.PingPongDelay({
+                    delayTime: SynthFxLoader.getQuarterNote(bpm),
                     maxDelayTime: 2,
                 });
                 var bits = new Tone.BitCrusher(4)
                 
-                return [pitch, bits];
+                return [delay, bits];
             case "midfx1":
                 var volume = new Tone.Volume(-15);
                 
