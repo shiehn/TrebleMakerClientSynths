@@ -32,7 +32,8 @@ var midiJson = {
 var SERVER_ENDPOINT = 'xoxoxoxoxoxoxoxoxoxoxo';
 var CDN = 'yoyoyoyoyoyoyoyoyoyoyo';
 
-
+var SERVER_ENDPOINT = 'http://treblemaker.ai:7777/api/track';
+var CDN = 'https://s3-us-west-2.amazonaws.com/songseeds/';
 
 
 var TRACK = { id:'', bpm: 0 };

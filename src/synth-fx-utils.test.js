@@ -2,7 +2,7 @@ import SynthFxUtils from './synth-fx-utils';
 
 describe('SynthFxUtils', () => {
     it('should return the correct milliSeconds for quarters', () => {
-        expect(SynthFxUtils.getQuaterNote(100)).toEqual(600);
+        expect(SynthFxUtils.getQuarterNote(100)).toEqual(600);
     });
 
     it('should return the correct milliSeconds for eigths', () => { 

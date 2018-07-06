@@ -18,7 +18,7 @@ const SynthLoader = {
         SynthLoader.low.start();
         SynthLoader.kick.start();
         SynthLoader.snare.start();
-        // SynthLoader.hat.start();
+        SynthLoader.hat.start();
     },
     "load": (type, synthId, fxId, bpm, midiJson) => {
         switch (type) {
@@ -43,18 +43,39 @@ const SynthLoader = {
                 }, midiJson.midiLow.tracks[0].notes);
                 return;
             case CONST.SYNTH_TYPE_KICK:
+             
                 SynthLoader.kick = new Tone.Part(function (time, note) {
-                    SynthLoader.getSynth(synthId, fxId, bpm).triggerAttackRelease(note.name, note.duration, time, note.velocity)
+                    var sampler = new Tone.Sampler({
+                        "C0" : "f9thkick00.wav", 
+                    }, function(){
+                        //sampler will repitch the closest sampl
+                        console.log(time + " hear it?")
+                        sampler.triggerAttackRelease("C0", note.duration, time, 1)
+                    },"/").toMaster()
+                    //SynthLoader.getSynth(synthId, fxId, bpm).triggerAttackRelease(note.name, note.duration, time, note.velocity)
                 }, midiJson.midiKick.tracks[1].notes);
+                
                 return;
             case CONST.SYNTH_TYPE_SNARE:
                 SynthLoader.snare = new Tone.Part(function (time, note) {
-                    SynthLoader.getSynth(synthId, fxId, bpm).triggerAttackRelease(note.name, note.duration, time, note.velocity)
-                }, midiJson.midiSnare.tracks[1].notes);
+                    var sampler = new Tone.Sampler({
+                        "C0" : "BtSnare_01_SP.wav", 
+                    }, function(){
+                        //sampler will repitch the closest sampl
+                        console.log(time + " hear it?")
+                        sampler.triggerAttackRelease("C0", note.duration, time, 0.2)
+                    },"/").toMaster()
+                }, midiJson.midiSnare.tracks[1].notes)
                 return;
             case CONST.SYNTH_TYPE_HAT:
                 SynthLoader.hat = new Tone.Part(function (time, note) {
-                    SynthLoader.getSynth(synthId, fxId, bpm).triggerAttackRelease(note.name, note.duration, time, note.velocity)
+                    var sampler = new Tone.Sampler({
+                        "C0" : "FoHat_01_SP.wav", 
+                    }, function(){
+                        //sampler will repitch the closest sampl
+                        console.log(time + " hear it?")
+                        sampler.triggerAttackRelease("C0", note.duration, time, 0.1)
+                    },"/").toMaster()
                 }, midiJson.midiHat.tracks[1].notes);
                 return;
             default:
@@ -108,7 +129,7 @@ const SynthLoader = {
                         release: 0.5
                     }
                 }
-                ).chain(fx[0], Tone.Master);
+                ).chain(fx[0], fx[1], Tone.Master);
             case "mid2": 
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.FMSynth({
@@ -134,7 +155,7 @@ const SynthLoader = {
                         release: 0.1
                     }
                 }
-                ).chain(fx[0], Tone.Master);
+                ).chain(fx[0], fx[1], Tone.Master);
 
             case "low1":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);

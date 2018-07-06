@@ -1,12 +1,12 @@
 const SynthFxUtils = {
     "msInMinute": 60000,
-    "getQuaterNote": (bpm) => {
+    "getQuarterNote": (bpm) => {
         return (SynthFxUtils.msInMinute/bpm)/1000;
     },
-    "getEightNote": (bpm) => {
+    "getEighthNote": (bpm) => {
         return ((SynthFxUtils.msInMinute/bpm)/2)/1000
     },
-    "getSixteenNote": (bpm) => {
+    "getSixteenthNote": (bpm) => {
         return ((SynthFxUtils.msInMinute/bpm)/4)/1000
     },
     "getTripletEighthNote": (bpm) => {
