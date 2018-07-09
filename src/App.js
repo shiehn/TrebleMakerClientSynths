@@ -14,6 +14,7 @@ import * as CONSTS from './consts';
 import { bindActionCreators } from 'redux';
 import SynthLoader from './synth-loader';
 import StateExtractor from './state-extractor';
+import { Button } from 'react-bootstrap';
 
 var midiJson = {
   midiMel: null,
@@ -36,7 +37,7 @@ var SERVER_ENDPOINT = 'http://treblemaker.ai:7777/api/track';
 var CDN = 'https://s3-us-west-2.amazonaws.com/songseeds/';
 
 
-var TRACK = { id:'', bpm: 0 };
+var TRACK = { id: '', bpm: 0 };
 
 class App extends Component {
   constructor(props) {
@@ -47,9 +48,6 @@ class App extends Component {
   }
 
   reloadMidi() {
-    console.log('AAAAAAAAAAAAAAA SERVER', SERVER_ENDPOINT)
-    console.log('AAAAAAAAAAAAAAA TRACK ID', TRACK.id)
-
     MidiLoader.getTrackId(SERVER_ENDPOINT, TRACK, midiJson);
     setTimeout(this.onUpdateShowLoading, 2000, this, false)
   }
@@ -139,6 +137,56 @@ class App extends Component {
               </a>
             </div >
 
+            <Button bsStyle="primary" className="notesBtn" onClick={() => {
+
+              //this.props.switchSynthFx(CONSTS.MID_SYNTH, this.props.midSynths)
+
+              if (Math.random() >= 0.5) {
+                this.props.switchSynth(CONSTS.MELODY_SYNTH, this.props.melodySynths)
+              }
+
+              if (Math.random() >= 0.5) {
+                this.props.switchFx(CONSTS.MELODY_FX, this.props.melodyFx)
+              }
+              if (Math.random() >= 0.5) {
+                this.props.switchSynth(CONSTS.HI_SYNTH, this.props.hiSynths)
+              }
+              if (Math.random() >= 0.5) {
+                this.props.switchFx(CONSTS.HI_FX, this.props.hiFx)
+              }
+              if (Math.random() >= 0.5) {
+                this.props.switchSynth(CONSTS.MID_SYNTH, this.props.midSynths)
+              }
+              if (Math.random() >= 0.5) {
+                this.props.switchFx(CONSTS.MID_FX, this.props.midFx)
+              }
+              if (Math.random() >= 0.5) {
+                this.props.switchSynth(CONSTS.LOW_SYNTH, this.props.lowSynths)
+              }
+              if (Math.random() >= 0.5) {
+                this.props.switchFx(CONSTS.LOW_FX, this.props.lowFx)
+              }
+              // if(Math.random() >= 0.5){
+              //   this.props.switchSynth(CONSTS.MELODY_SYNTH, this.props.melodySynths)
+              // }
+
+              // if(Math.random() >= 0.5){
+              //   this.props.switchSynth(CONSTS.HI_SYNTH, this.props.hiSynths)
+              // }
+
+              // if(Math.random() >= 0.5){
+              //   this.props.switchSynth(CONSTS.MID_SYNTH, this.props.midSynths)
+              // }
+
+              // if(Math.random() >= 0.5){
+              //   this.props.switchSynth(CONSTS.LOW_SYNTH, this.props.lowSynths)
+              // }
+
+            }}>{
+                //  "SWITCH MID FX: " + StateExtractor.getSelectedSynthFx(this.props.midFx).name +
+                //  " SWITCH MID SYNTHS: " + StateExtractor.getSelectedSynth(CONSTS.MID_SYNTH, this.props.midSynths).name
+              }</Button>
+
             <video id='video-wrapper' style={this.props.showVideo ? { display: '' } : { display: 'none' }} controls >
               <source src="https://s3-us-west-2.amazonaws.com/songseeds/treblemaker-instruction.mp4" type="video/mp4" />
               Your browser does not support the video tag.
@@ -174,7 +222,7 @@ class App extends Component {
 
     //     <div className="btnRow">
     //       <span className="btnSpan">
-    //         <Button bsStyle="primary" className="notesBtn" onClick={() => this.props.switchPattern(CONSTS.HI_PATTERN, this.props.hiPattern)}>{
+    //         <Button bsStyle="primary" className="notesBtn" onClick={() => {this.props.switchPattern(CONSTS.HI_PATTERN, this.props.hiPattern)}>{
     //           StateExtractor.getSelectedPattern(this.props.hiPattern).selected + 'Hi Notes'
     //         }</Button>
     //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
@@ -320,8 +368,8 @@ class App extends Component {
 
   stopAndReloadSynths() {
     Tone.Transport.bpm.value = 120
-    
-    if(!TRACK.id){
+
+    if (!TRACK.id) {
       this.reloadMidi();
     }
 
@@ -385,7 +433,7 @@ class App extends Component {
       StateExtractor.getSelectedSynthFx(this.props.hatFx).name,
       TRACK.bpm,
       midiJson)
-    
+
     Tone.Transport.bpm.value = TRACK.bpm
     SynthLoader.startAll();
 

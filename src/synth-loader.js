@@ -48,8 +48,7 @@ const SynthLoader = {
                     var sampler = new Tone.Sampler({
                         "C0" : "f9thkick00.wav", 
                     }, function(){
-                        //sampler will repitch the closest sampl
-                        console.log(time + " hear it?")
+                        //sampler will repitch the closest sampl 
                         sampler.triggerAttackRelease("C0", note.duration, time, 1)
                     },"/").toMaster()
                     //SynthLoader.getSynth(synthId, fxId, bpm).triggerAttackRelease(note.name, note.duration, time, note.velocity)
@@ -61,8 +60,7 @@ const SynthLoader = {
                     var sampler = new Tone.Sampler({
                         "C0" : "BtSnare_01_SP.wav", 
                     }, function(){
-                        //sampler will repitch the closest sampl
-                        console.log(time + " hear it?")
+                        //sampler will repitch the closest sampl 
                         sampler.triggerAttackRelease("C0", note.duration, time, 0.2)
                     },"/").toMaster()
                 }, midiJson.midiSnare.tracks[1].notes)
@@ -72,8 +70,7 @@ const SynthLoader = {
                     var sampler = new Tone.Sampler({
                         "C0" : "FoHat_01_SP.wav", 
                     }, function(){
-                        //sampler will repitch the closest sampl
-                        console.log(time + " hear it?")
+                        //sampler will repitch the closest sampl 
                         sampler.triggerAttackRelease("C0", note.duration, time, 0.1)
                     },"/").toMaster()
                 }, midiJson.midiHat.tracks[1].notes);

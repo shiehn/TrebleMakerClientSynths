@@ -15,6 +15,9 @@ const StateExtraction = {
             }
         }
     },
+    "getRandomlySelectedSynth": (type, synths) => {
+        
+    },
     "getSelectedSynth": (type, synths) => {
         switch (type) {
             case CONSTS.SYNTH_TYPE_MEL:

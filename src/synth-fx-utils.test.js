@@ -2,18 +2,18 @@ import SynthFxUtils from './synth-fx-utils';
 
 describe('SynthFxUtils', () => {
     it('should return the correct milliSeconds for quarters', () => {
-        expect(SynthFxUtils.getQuarterNote(100)).toEqual(600);
+        expect(SynthFxUtils.getQuarterNote(100)).toEqual(0.6);
     });
 
     it('should return the correct milliSeconds for eigths', () => { 
-        expect(SynthFxUtils.getEightNote(100)).toEqual(300);
+        expect(SynthFxUtils.getEighthNote(100)).toEqual(0.3);
     });
 
     it('should return the correct milliSeconds for sixteenths', () => { 
-        expect(SynthFxUtils.getSixteenthNote(100)).toEqual(150);
+        expect(SynthFxUtils.getSixteenthNote(100)).toEqual(0.15);
     });
 
     it('should return the correct milliSeconds for triplets', () => {
-        expect(SynthFxUtils.getTripletEighth(100)).toEqual(400);
+        expect(SynthFxUtils.getTripletEighthNote(100)).toEqual(0.4);
     });
 });
