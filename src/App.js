@@ -307,7 +307,7 @@ class App extends Component {
   }
 
   begin() {
-    Tone.Transport.start("+1")
+    Tone.Transport.start()
   }
 
   stopRefreshAndLoadSynths() {
@@ -417,7 +417,10 @@ class App extends Component {
     Tone.Transport.bpm.value = TRACK.bpm
     SynthLoader.startAll();
 
-    this.begin();
+    setTimeout(function(ctx){ 
+      console.log('BEGIN')
+      ctx.begin(); 
+    }, 2000, this);
   }
 }
 
