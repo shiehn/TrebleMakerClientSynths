@@ -10,7 +10,7 @@ const SynthFxLoader = {
 
                 return [volume, reverb]
             case "melfx2":
-                var volume = new Tone.Volume(-40);
+                var volume = new Tone.Volume(-10);
                 var reverb = new Tone.Reverb({
                     decay: 1.5,
                     preDelay: 0.01

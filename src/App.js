@@ -136,57 +136,7 @@ class App extends Component {
                 <span id='info-txt'>How does this work?</span>
               </a>
             </div >
-
-            <Button bsStyle="primary" className="notesBtn" onClick={() => {
-
-              //this.props.switchSynthFx(CONSTS.MID_SYNTH, this.props.midSynths)
-
-              if (Math.random() >= 0.5) {
-                this.props.switchSynth(CONSTS.MELODY_SYNTH, this.props.melodySynths)
-              }
-
-              if (Math.random() >= 0.5) {
-                this.props.switchFx(CONSTS.MELODY_FX, this.props.melodyFx)
-              }
-              if (Math.random() >= 0.5) {
-                this.props.switchSynth(CONSTS.HI_SYNTH, this.props.hiSynths)
-              }
-              if (Math.random() >= 0.5) {
-                this.props.switchFx(CONSTS.HI_FX, this.props.hiFx)
-              }
-              if (Math.random() >= 0.5) {
-                this.props.switchSynth(CONSTS.MID_SYNTH, this.props.midSynths)
-              }
-              if (Math.random() >= 0.5) {
-                this.props.switchFx(CONSTS.MID_FX, this.props.midFx)
-              }
-              if (Math.random() >= 0.5) {
-                this.props.switchSynth(CONSTS.LOW_SYNTH, this.props.lowSynths)
-              }
-              if (Math.random() >= 0.5) {
-                this.props.switchFx(CONSTS.LOW_FX, this.props.lowFx)
-              }
-              // if(Math.random() >= 0.5){
-              //   this.props.switchSynth(CONSTS.MELODY_SYNTH, this.props.melodySynths)
-              // }
-
-              // if(Math.random() >= 0.5){
-              //   this.props.switchSynth(CONSTS.HI_SYNTH, this.props.hiSynths)
-              // }
-
-              // if(Math.random() >= 0.5){
-              //   this.props.switchSynth(CONSTS.MID_SYNTH, this.props.midSynths)
-              // }
-
-              // if(Math.random() >= 0.5){
-              //   this.props.switchSynth(CONSTS.LOW_SYNTH, this.props.lowSynths)
-              // }
-
-            }}>{
-                //  "SWITCH MID FX: " + StateExtractor.getSelectedSynthFx(this.props.midFx).name +
-                //  " SWITCH MID SYNTHS: " + StateExtractor.getSelectedSynth(CONSTS.MID_SYNTH, this.props.midSynths).name
-              }</Button>
-
+            
             <video id='video-wrapper' style={this.props.showVideo ? { display: '' } : { display: 'none' }} controls >
               <source src="https://s3-us-west-2.amazonaws.com/songseeds/treblemaker-instruction.mp4" type="video/mp4" />
               Your browser does not support the video tag.
@@ -366,6 +316,34 @@ class App extends Component {
     this.reloadMidi();
   }
 
+  randomizeSynthsAndFx(){
+    if (Math.random() >= 0.5) {
+      this.props.switchSynth(CONSTS.MELODY_SYNTH, this.props.melodySynths)
+    }
+
+    if (Math.random() >= 0.5) {
+      this.props.switchFx(CONSTS.MELODY_FX, this.props.melodyFx)
+    }
+    if (Math.random() >= 0.5) {
+      this.props.switchSynth(CONSTS.HI_SYNTH, this.props.hiSynths)
+    }
+    if (Math.random() >= 0.5) {
+      this.props.switchFx(CONSTS.HI_FX, this.props.hiFx)
+    }
+    if (Math.random() >= 0.5) {
+      this.props.switchSynth(CONSTS.MID_SYNTH, this.props.midSynths)
+    }
+    if (Math.random() >= 0.5) {
+      this.props.switchFx(CONSTS.MID_FX, this.props.midFx)
+    }
+    if (Math.random() >= 0.5) {
+      this.props.switchSynth(CONSTS.LOW_SYNTH, this.props.lowSynths)
+    }
+    if (Math.random() >= 0.5) {
+      this.props.switchFx(CONSTS.LOW_FX, this.props.lowFx)
+    }
+  }
+
   stopAndReloadSynths() {
     Tone.Transport.bpm.value = 120
 
@@ -398,6 +376,8 @@ class App extends Component {
       SynthLoader.hat.dispose();
     }
 
+    this.randomizeSynthsAndFx();
+    
     SynthLoader.load(CONSTS.SYNTH_TYPE_MEL,
       StateExtractor.getSelectedSynth(CONSTS.SYNTH_TYPE_MEL, this.props.melodySynths).name,
       StateExtractor.getSelectedSynthFx(this.props.melodyFx).name,
