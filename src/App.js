@@ -136,7 +136,7 @@ class App extends Component {
                 <span id='info-txt'>How does this work?</span>
               </a>
             </div >
-            
+
             <video id='video-wrapper' style={this.props.showVideo ? { display: '' } : { display: 'none' }} controls >
               <source src="https://s3-us-west-2.amazonaws.com/songseeds/treblemaker-instruction.mp4" type="video/mp4" />
               Your browser does not support the video tag.
@@ -307,7 +307,7 @@ class App extends Component {
   }
 
   begin() {
-    Tone.Transport.start()
+    Tone.Transport.start("+1")
   }
 
   stopRefreshAndLoadSynths() {
