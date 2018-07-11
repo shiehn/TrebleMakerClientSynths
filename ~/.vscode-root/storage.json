@@ -442,8 +442,23 @@
     "pickerWorkingDir": "/home/stevehiehn",
     "openedPathsList": {
         "workspaces": [
+            "/home/stevehiehn/TrebleMakerClientSynths",
             "/home/stevehiehn/TrebleMakerClientSynths"
         ],
         "files": []
+    },
+    "windowsState": {
+        "openedWindows": [],
+        "lastActiveWindow": {
+            "folderPath": "/home/stevehiehn/TrebleMakerClientSynths",
+            "backupPath": "/home/stevehiehn/TrebleMakerClientSynths/~/.vscode-root/Backups/7b866d364e45de6b416f43b4e21a2940",
+            "uiState": {
+                "mode": 1,
+                "x": 85,
+                "y": 271,
+                "width": 1759,
+                "height": 766
+            }
+        }
     }
 }

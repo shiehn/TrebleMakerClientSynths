@@ -74,7 +74,7 @@ const store = createStore(
         melodyFx: [{"name": "melfx1", "selected": true, "color": "#42f4a7"}, {"name": "melfx2", "selected": false, "color": "##7d42f4"}],
         
         hiPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
-        hiSynths: [{"name": "hi1", "selected": true, "color": "#42f4a7"}, {"name": "hi1", "selected": false, "color": "##7d42f4"}],
+        hiSynths: [{"name": "hi1", "selected": true, "color": "#42f4a7"}, {"name": "hi2", "selected": false, "color": "##7d42f4"}],
         hiFx: [{"name": "hifx1", "selected": true, "color": "#42f4a7"}, {"name": "hifx2", "selected": false, "color": "##7d42f4"}],
         
         midPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],

@@ -416,11 +416,8 @@ class App extends Component {
 
     Tone.Transport.bpm.value = TRACK.bpm
     SynthLoader.startAll();
-
-    setTimeout(function(ctx){ 
-      console.log('BEGIN')
-      ctx.begin(); 
-    }, 2000, this);
+ 
+    this.begin();  
   }
 }
 
