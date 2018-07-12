@@ -99,7 +99,7 @@ const SynthLoader = {
                 return new Tone.PluckSynth().chain(fx[0], fx[1], Tone.Master);
             case "mel2":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
-                return new Tone.PluckSynth().chain(fx[0], fx[1], Tone.Master);
+                return new Tone.AMSynth().chain(fx[0], fx[1], Tone.Master);
             case "hi1":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.Synth({
@@ -112,7 +112,7 @@ const SynthLoader = {
                         sustain: 0.01,
                         release: 1
                     }
-                }).chain(fx[0], Tone.Master);
+                }).chain(fx[0], fx[1], fx[2], Tone.Master);
             case "hi2":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.Synth({
@@ -125,7 +125,7 @@ const SynthLoader = {
                         sustain: 0.01,
                         release: 1
                     }
-                }).chain(fx[0], Tone.Master);
+                }).chain(fx[0], fx[1], fx[2], Tone.Master);
             case "mid1":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.FMSynth({
@@ -207,31 +207,29 @@ const SynthLoader = {
                 }).chain(fx[0], fx[1], Tone.Master);
             case "kick1":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
-                return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
+                return new Tone.MembraneSynth().chain(fx[0], Tone.Master);
             case "kick2":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
-                return new Tone.MembraneSynth().chain(fx[0], fx[1], Tone.Master);
+                return new Tone.MembraneSynth().chain(fx[0], Tone.Master);
             case "snare1":
             case "snare2":
-
                 // var volume = new Tone.Volume(20);
-
-                //var fx = SynthFxLoader.getSynthFx(fxId, bpm);
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.PluckSynth({
                     attackNoise: 1,
                     dampening: 10000,
                     resonance: 0.7
-                }).chain(Tone.Master);
+                }).chain(fx[0], Tone.Master);
             case "hat1":
-               // var fx = SynthFxLoader.getSynthFx(fxId, bpm);
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.PluckSynth({
                     attackNoise: 2,
                     dampening: 20000,
                     resonance: 0.5
-                }).chain(Tone.Master);
+                }).chain(fx[0], Tone.Master);
             case "hat2":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
-                return new Tone.MetalSynth().chain(fx[0], fx[1], Tone.Master);
+                return new Tone.MetalSynth().chain(fx[0], Tone.Master);
             default:
                 return null;
         }
