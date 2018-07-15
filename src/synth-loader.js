@@ -96,12 +96,86 @@ const SynthLoader = {
         switch (synthId) {
             case "mel1":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
-                return new Tone.PluckSynth().chain(fx[0], fx[1], Tone.Master);
+                console.log("mel1")
+                return new Tone.PluckSynth().chain(new Tone.Volume(-10), fx[1], Tone.Master);
             case "mel2":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
-                return new Tone.AMSynth().chain(fx[0], fx[1], Tone.Master);
+                console.log("mel2")
+                return new Tone.AMSynth().chain(new Tone.Volume(-8), fx[1], Tone.Master);
+            case "mel3":
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
+                console.log("mel3")
+                return new Tone.AMSynth({
+                    harmonicity: 2,
+                    detune: 0,
+                    oscillator: {
+                        type: 'triangle'
+                    },
+                    envelope: {
+                        attack: 0.001,
+                        decay: 0.01,
+                        sustain: 0.5,
+                        release: 0.01
+                    },
+                    modulation: {
+                        type: 'sine'
+                    },
+                    modulationEnvelope: {
+                        attack: 0.5,
+                        decay: 0,
+                        sustain: 1,
+                        release: 0.1
+                    }
+                }).chain(new Tone.Volume(-4), fx[1], Tone.Master);
+            case "mel4":
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
+                console.log("mel4")
+                return new Tone.DuoSynth({
+                    vibratoAmount: 0.5,
+                    vibratoRate: 6,
+                    harmonicity: 1,
+                    voice0: {
+                        volume: -10,
+                        portamento: 4,
+                        oscillator: {
+                            type: 'sine'
+                        },
+                        filterEnvelope: {
+                            attack: 0.01,
+                            decay: 1,
+                            sustain: 1,
+                            release: 0.5
+                        },
+                        envelope: {
+                            attack: 0.1,
+                            decay: 0.1,
+                            sustain: 1,
+                            release: 0.5
+                        }
+                    },
+                    voice1: {
+                        volume: -10,
+                        portamento: 0,
+                        oscillator: {
+                            type: 'sine'
+                        },
+                        filterEnvelope: {
+                            attack: 0.01,
+                            decay: 0,
+                            sustain: 1,
+                            release: 0.5
+                        },
+                        envelope: {
+                            attack: 0.02,
+                            decay: 0,
+                            sustain: 0.1,
+                            release: 0.5
+                        }
+                    }
+                }).chain(new Tone.Volume(-24), fx[1], Tone.Master);
             case "hi1":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
+                console.log("hi1")
                 return new Tone.Synth({
                     oscillator: {
                         type: 'square'
@@ -115,6 +189,7 @@ const SynthLoader = {
                 }).chain(fx[0], fx[1], fx[2], Tone.Master);
             case "hi2":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
+                console.log("hi2")
                 return new Tone.Synth({
                     oscillator: {
                         type: 'sine'
@@ -126,8 +201,45 @@ const SynthLoader = {
                         release: 1
                     }
                 }).chain(fx[0], fx[1], fx[2], Tone.Master);
+            case "hi3":
+                console.log("hi3")
+                return new Tone.PluckSynth({
+                    attackNoise: 2,
+                    dampening: 8000,
+                    resonance: 0.8,
+                }).chain(new Tone.Volume(-10), Tone.Master);
+            case "hi4":
+                console.log("hi4")
+                return new Tone.MonoSynth({
+                    frequency: 'C4',
+                    detune: 0,
+                    oscillator: {
+                        type: 'sine'
+                    },
+                    filter: {
+                        Q: 6,
+                        type: 'lowpass',
+                        rolloff: -24
+                    },
+                    envelope: {
+                        attack: 0.005,
+                        decay: 0.1,
+                        sustain: 0.9,
+                        release: 1
+                    },
+                    filterEnvelope: {
+                        attack: 0.06,
+                        decay: 0.2,
+                        sustain: 0.5,
+                        release: 2,
+                        baseFrequency: 200,
+                        octaves: 7,
+                        exponent: 2
+                    }
+                }).chain(new Tone.Volume(-16), Tone.Master);
             case "mid1":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
+                console.log("mid1")
                 return new Tone.FMSynth({
                     harmonicity: 0,
                     modulationIndex: 0,
@@ -154,6 +266,7 @@ const SynthLoader = {
                 ).chain(fx[0], fx[1], Tone.Master);
             case "mid2":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
+                console.log("mid2")
                 return new Tone.FMSynth({
                     harmonicity: 7,
                     modulationIndex: 3,
@@ -180,31 +293,84 @@ const SynthLoader = {
                 ).chain(fx[0], fx[1], Tone.Master);
 
             case "low1":
-                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
-                return new Tone.Synth({
-                    oscillator: {
-                        type: 'sine',
-                    },
-                    envelope: {
-                        attack: 0.005,
-                        decay: 0.1,
-                        sustain: 0.8,
-                        release: 1
-                    }
-                }).chain(fx[0], fx[1], Tone.Master);
+            var fx = SynthFxLoader.getSynthFx(fxId, bpm);
+            console.log("low1")
+            return new Tone.Synth({
+                oscillator: {
+                    type: 'sine',
+                },
+                envelope: {
+                    attack: 0.005,
+                    decay: 0.1,
+                    sustain: 0.8,
+                    release: 1
+                }
+            }).chain(fx[0], fx[1], Tone.Master);
             case "low2":
+            var fx = SynthFxLoader.getSynthFx(fxId, bpm);
+            console.log("low2")
+            return new Tone.Synth({
+                oscillator: {
+                    type: 'triangle',
+                },
+                envelope: {
+                    attack: 0.005,
+                    decay: 0.1,
+                    sustain: 0.8,
+                    release: 1
+                }
+            }).chain(fx[0], fx[1], Tone.Master);
+            case "low3":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
-                return new Tone.Synth({
+                console.log("low3")
+                return new Tone.AMSynth({
+                    harmonicity: 2,
+                    detune: 0,
                     oscillator: {
-                        type: 'triangle',
+                        type: 'square'
                     },
                     envelope: {
-                        attack: 0.005,
-                        decay: 0.1,
-                        sustain: 0.8,
-                        release: 1
+                        attack: 0.01,
+                        decay: 0.01,
+                        sustain: 1,
+                        release: 0.5
+                    },
+                    modulation: {
+                        type: 'square'
+                    },
+                    modulationEnvelope: {
+                        attack: 0.5,
+                        decay: 0,
+                        sustain: 1,
+                        release: 0.5
                     }
-                }).chain(fx[0], fx[1], Tone.Master);
+                }).chain(fx[0], new Tone.Volume(10), Tone.Master);
+            case "low4":
+                var fx = SynthFxLoader.getSynthFx(fxId, bpm);
+                console.log("low4")
+                return new Tone.FMSynth({
+                    harmonicity: 1,
+                    modulationIndex: 5,
+                    detune: 0,
+                    oscillator: {
+                        type: 'sine'
+                    },
+                    envelope: {
+                        attack: 0.01,
+                        decay: 0.01,
+                        sustain: 1,
+                        release: 0.5
+                    },
+                    modulation: {
+                        type: 'sine'
+                    },
+                    modulationEnvelope: {
+                        attack: 0.5,
+                        decay: 0,
+                        sustain: 1,
+                        release: 0.5
+                    }
+                }).chain(fx[0], new Tone.Volume(6), Tone.Master);
             case "kick1":
                 var fx = SynthFxLoader.getSynthFx(fxId, bpm);
                 return new Tone.MembraneSynth().chain(fx[0], Tone.Master);
