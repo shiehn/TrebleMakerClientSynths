@@ -415,6 +415,7 @@ class App extends Component {
       midiJson)
 
     Tone.Transport.bpm.value = TRACK.bpm
+    Tone.context.latencyHint = 'playback'
     SynthLoader.startAll();
  
     this.begin();  
