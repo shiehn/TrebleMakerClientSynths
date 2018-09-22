@@ -1,4 +1,5 @@
 # TrebleMakerClientSynths
+[![Build Status](http://35.185.252.88:8080/buildStatus/icon?job=TrebleMakerClientSynths-BUILD)](http://35.185.252.88:8080/job/TrebleMakerClientSynths-BUILD/)
 TrebleMakerClientSynths is a browser app that renders a midi feed with synths build ontop of the web-audio-api
 
 ---
