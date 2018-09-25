@@ -26,18 +26,14 @@ var midiJson = {
   midiHat: null,
 };
 
-//docker build --build-arg TMW_NEXT_TRACK_URL="http:\/\/localhost:7777\/api\/track" --build-arg TMW_S3_BUCKET="https:\/\/s3-us-west-2.amazonaws.com\/[YOUR-BUCKET-NAME]\/" --no-cache -t treblemakerweb .
-//docker build --build-arg TMW_NEXT_TRACK_URL="http:\/\/34.218.69.131:7777\/api\/track" --build-arg TMW_S3_BUCKET="https:\/\/s3-us-west-2.amazonaws.com\/songseeds\/" --no-cache -t treblemakerweb .
-//docker run -p 80:80 treblemakerweb
-
 var SERVER_ENDPOINT = 'xoxoxoxoxoxoxoxoxoxoxo';
 var CDN = 'yoyoyoyoyoyoyoyoyoyoyo';
 
-var SERVER_ENDPOINT = 'http://treblemaker.ai:7777/api/track';
-var CDN = 'https://s3-us-west-2.amazonaws.com/songseeds/';
-
-
-var TRACK = { id: '', bpm: 0 };
+var TRACK = { 
+  id: '',
+  selectedMelody: null, 
+  bpm: 0 
+};
 
 class App extends Component {
   constructor(props) {

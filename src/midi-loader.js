@@ -1,54 +1,31 @@
 import { load } from 'midiconvert';
 
 const MidiLoader = {
-    getTrackId(SERVER_ENDPOINT, TRACK, midiJson){
-
-        console.log('ID A', TRACK.id)
-
-        fetch(SERVER_ENDPOINT)
-        .then(function(response) { 
+    getTrackId(SERVER_ENDPOINT, TRACK, midiJson){ 
+        fetch(SERVER_ENDPOINT).then(function(response) { 
             return response.json()
-        }).then(function(json) {
-            console.log('MIDI_JSON', json.midiMel); 
-            TRACK.id = json.name;
-            console.log('ID D', TRACK.id)
+        }).then(function(json) { 
+            TRACK.id = json.name; 
+            TRACK.selectedMelody = json.selectedMelody;
             MidiLoader.loadMidi(midiJson, json.name, TRACK)
-        });
-
-
-
-        // {
-        //     "name": "a4211305-f9ab-422f-9db4-b0834b7f71dc",
-        //     "stationId": 2
-        //     }
+        }); 
     },  
     loadMidi(midiJson, trackId, TRACK) { 
-        /*
-        load("/0compmelodic.mid", function (midi) {
-            midiJson.midiMel = midi;
-        })
 
-        load("/0comphi.mid", function (midi) {
-            midiJson.midiHi = midi;
-        })
-
-        load("/0compmid.mid", function (midi) {
-            midiJson.midiMid = midi;
-        })
-
-        load("/0complow.mid", function (midi) {
-            midiJson.midiLow = midi;
-        })
-*/        
-        load("https://s3-us-west-2.amazonaws.com/songseeds/" + trackId + "/0compmelodic.mid", function (midi) {
+        var melodyFile = "/0compmelodic.mid";
+        if(TRACK.selectedMelody === 1){
+            melodyFile = "/0compmelodic_0.mid";
+        }else if(TRACK.selectedMelody === 2){
+            melodyFile = "/0compmelodic_1.mid";
+        }
+ 
+        load("https://s3-us-west-2.amazonaws.com/songseeds/" + trackId + melodyFile, function (midi) {
             midiJson.midiMel = midi;
         })
 
         load("https://s3-us-west-2.amazonaws.com/songseeds/" + trackId + "/0comphi.mid", function (midi) {
             midiJson.midiHi = midi;
-            TRACK.bpm = midiJson.midiHi.header.bpm;
-            console.log('MIIIDDDIII_NEW2', midiJson)
-            console.log('BPM', midiJson.midiHi.header.bpm)
+            TRACK.bpm = midiJson.midiHi.header.bpm;  
         })
 
         load("https://s3-us-west-2.amazonaws.com/songseeds/" + trackId + "/0compmid.mid", function (midi) {
@@ -67,9 +44,7 @@ const MidiLoader = {
         })
         
         load("/hat-test.mid", function (midi) {
-            midiJson.midiHat = midi;
-            
-            //callback.onUpdateShowVideo();
+            midiJson.midiHat = midi; 
         })
 
         return true;
