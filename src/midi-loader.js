@@ -5,9 +5,7 @@ const MidiLoader = {
         fetch(SERVER_ENDPOINT).then(function(response) { 
             return response.json()
         }).then(function(json) { 
-            TRACK.id = json.name; 
-            //TRACK.id = "bdfd0004-ecce-4002-b965-adfc0cd85261";
-            console.log("TRACK ID HC: ", TRACK.id)
+            TRACK.id = json.name;  
             TRACK.selectedMelody = json.selectedMelody;
             
             var bpm = -99

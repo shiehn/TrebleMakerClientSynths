@@ -90,8 +90,10 @@ class App extends Component {
           <div id='title_wrapper'>TrebleMaker.ai</div>
           <div id='sub_title_wrapper'>
             <div id='sub_title'>
-              Generated melodies, arpeggios, <br />chords & basslines
-        </div>
+              <span style={{'background-color': 'rgba(51, 170, 51, .2)', 'color': 'black'}}>ROYALTY-FREE</span> midi chords, <br />
+              arpeggios, basslines, <br />
+              beats & melodies
+         </div>
           </div>
           <div id='audio-wrapper' >
             <audio controls preload="metadata" id='audio-tag' style={{ 'display': 'none' }} >
