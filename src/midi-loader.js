@@ -30,6 +30,12 @@ const MidiLoader = {
             melodyFile = "/0compmelodic_0.mid";
         }else if(TRACK.selectedMelody === 2){
             melodyFile = "/0compmelodic_1.mid";
+        }else if(TRACK.selectedMelody === 3){
+            melodyFile = "/0compmelodic_2.mid";
+        }else if(TRACK.selectedMelody === 4){
+            melodyFile = "/0compmelodic_3.mid";
+        }else if(TRACK.selectedMelody === 5){
+            melodyFile = "/0compmelodic_4.mid";
         }
  
         load("https://s3-us-west-2.amazonaws.com/songseeds/" + TRACK.id + melodyFile, function (midi) {
