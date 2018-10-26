@@ -122,7 +122,12 @@ class App extends Component {
                 </div>
               </div>
             </div >
-
+            
+            <div id='demo-wrapper'> 
+              <span id='info-txt'>Demos created with TrebleMaker:</span><br /><br />  
+              <iframe width="50%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/519519909&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
+            </div>
+            
             <div id='info-wrapper' class='info_btns' style={this.props.showVideo ? { display: 'none' } : { display: '' }} onClick={(e) => { this.onUpdateShowVideo() }}>
               <i class="fas fa-info-circle info_btns"></i>
               <span id='info-txt'>What is this?</span>
