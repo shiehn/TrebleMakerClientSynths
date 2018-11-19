@@ -1,7 +1,7 @@
 import { load } from 'midiconvert';
 
 const MidiLoader = {
-    getTrackId(SERVER_ENDPOINT, TRACK, midiJson){ 
+    getTrackId(SERVER_ENDPOINT, TRACK, midiJson, updateTrackId){ 
         fetch(SERVER_ENDPOINT).then(function(response) { 
             return response.json()
         }).then(function(json) { 
@@ -18,6 +18,9 @@ const MidiLoader = {
             }
 
             TRACK.bpm = bpm;
+
+            updateTrackId();
+
             MidiLoader.loadMidi(midiJson, TRACK)
         }); 
     },  

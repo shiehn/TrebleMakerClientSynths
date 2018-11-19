@@ -39,7 +39,7 @@ a {
 #sub_title {
   border-top: solid 2px #888; 
   display: inline-block;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   padding-top: 0.1em;
   padding-left: 0.7em;
 }
@@ -136,4 +136,19 @@ audio#audio-tag {
 
 #loading-centre img {
   height: 200px;
+}
+
+.track-id-wrapper {
+  border: 2px solid black;
+  padding: 1.5%;
+}
+
+.track-id-txt {
+  color: darkred;
+  font-weight: bold;
+}
+
+.track-id-outer-wrapper {
+  width: 100%;
+  margin-bottom: 40px;
 }

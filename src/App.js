@@ -15,6 +15,7 @@ import { bindActionCreators } from 'redux';
 import SynthLoader from './synth-loader';
 import StateExtractor from './state-extractor';
 import { Button } from 'react-bootstrap';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 var midiJson = {
   midiMel: null,
@@ -38,13 +39,27 @@ var TRACK = {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { width: 0, height: 0 };
+    this.state = { 
+      width: 0, 
+      height: 0, 
+      value: '',
+      copied: false, 
+      trackId: 'Track Id',
+    };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.onCopy = this.updateWindowDimensions.bind(this);
+    this.onChange = this.updateWindowDimensions.bind(this);
     this.reloadMidi();
   }
 
+  updateTrackId = () => {
+    console.log('WAS CALLED!!')
+    this.setState({ width: window.innerWidth, trackId: TRACK.id, copied: false });
+  }
+
   reloadMidi() {
-    MidiLoader.getTrackId(SERVER_ENDPOINT, TRACK, midiJson);
+    MidiLoader.getTrackId(SERVER_ENDPOINT, TRACK, midiJson, this.updateTrackId);  
+    this.setState({ width: window.innerWidth, trackId: TRACK.id });
     setTimeout(this.onUpdateShowLoading, 2000, this, false)
   }
 
@@ -57,7 +72,7 @@ class App extends Component {
     window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
-  updateWindowDimensions() {
+  updateWindowDimensions() { 
     this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
@@ -81,7 +96,7 @@ class App extends Component {
   onDownLoadTar() {
     window.location.href = CDN + TRACK.id + '.tar';
   }
-
+ 
   render() {
     return (
       <div>
@@ -100,6 +115,19 @@ class App extends Component {
               <source src="" type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
+
+              <div class='track-id-outer-wrapper'>
+                <CopyToClipboard text={this.state.value} onCopy={() => this.setState({copied: true})}> 
+                  <span class='track-id-wrapper'>  
+                    <span class='track-id-txt' value={this.state.value} onChange={({target: {value}}) => this.setState({value, copied: false})}>
+                    <i class="fas fa-copy control_btns download-btn"></i> 
+                    
+                    {this.state.copied ? 'Copied to Clipboard' : 'TRACK ID: ' + this.state.trackId} 
+                  </span> 
+                </span>
+                </CopyToClipboard>
+              </div>
+
             <div id='refresh-btn-wrapper' >
               <div id='btn-border' style={this.props.showLoading ? { display: 'none' } : { display: '' }} >
                 <span>
@@ -114,6 +142,7 @@ class App extends Component {
                 <span>
                   <i class="fas fa-download control_btns download-btn" onClick={(e) => this.onDownLoadTar()}></i>
                 </span>
+                
               </div>
 
               <div id='loading-screen' style={this.props.showLoading ? { display: '' } : { display: 'none' }}>
@@ -431,7 +460,7 @@ const mapStateToProps = (state) => {
     // user: state.user,
     playState: state.playState,
     showVideo: state.showVideo,
-    showLoading: state.showLoading,
+    showLoading: state.showLoading, 
     melodyPattern: state.melodyPattern,
     hiPattern: state.hiPattern,
     midPattern: state.midPattern,

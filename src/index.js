@@ -67,7 +67,7 @@ const store = createStore(
     allReducers, { 
         playState: false,
         showVideo: false,
-        showLoading: true,
+        showLoading: true, 
         
         melodyPattern: [{"name": "a", "selected": true, "color": "#42f4a7"}, {"name": "a", "selected": false, "color": "##7d42f4"}],
         melodySynths: [{"name": "mel1", "selected": true, "color": "#42f4a7"}, 
