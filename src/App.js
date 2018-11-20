@@ -100,8 +100,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <nav></nav>
-        <main>
+        <main> 
           <div id='title_wrapper'>TrebleMaker.ai</div>
           <div id='sub_title_wrapper'>
             <div id='sub_title'>
@@ -115,18 +114,17 @@ class App extends Component {
               <source src="" type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
-
-              <div class='track-id-outer-wrapper'>
-                <CopyToClipboard text={this.state.value} onCopy={() => this.setState({copied: true})}> 
-                  <span class='track-id-wrapper'>  
-                    <span class='track-id-txt' value={this.state.value} onChange={({target: {value}}) => this.setState({value, copied: false})}>
-                    <i class="fas fa-copy control_btns download-btn"></i> 
-                    
-                    {this.state.copied ? 'Copied to Clipboard' : 'TRACK ID: ' + this.state.trackId} 
-                  </span> 
-                </span>
-                </CopyToClipboard>
-              </div>
+            <div class='track-id-outer-wrapper'>
+              <CopyToClipboard text={this.state.value} onCopy={() => this.setState({copied: true})}> 
+                <span class='track-id-wrapper'>  
+                  <span class='track-id-txt' value={this.state.value} onChange={({target: {value}}) => this.setState({value, copied: false})}>
+                  <i class="fas fa-copy control_btns download-btn"></i> 
+                  
+                  {this.state.copied ? 'Copied to Clipboard' : 'TRACK ID: ' + this.state.trackId} 
+                </span> 
+              </span>
+              </CopyToClipboard>
+            </div>
 
             <div id='refresh-btn-wrapper' >
               <div id='btn-border' style={this.props.showLoading ? { display: 'none' } : { display: '' }} >
@@ -141,9 +139,8 @@ class App extends Component {
                 </span>
                 <span>
                   <i class="fas fa-download control_btns download-btn" onClick={(e) => this.onDownLoadTar()}></i>
-                </span>
-                
-              </div>
+                </span>  
+              </div> 
 
               <div id='loading-screen' style={this.props.showLoading ? { display: '' } : { display: 'none' }}>
                 <div id='loading-centre'>
@@ -151,6 +148,23 @@ class App extends Component {
                 </div>
               </div>
             </div >
+
+            <div id='plugin-wrapper'>  
+              <div id='plugin-inner-wrapper'> 
+                <img id="plugin-icon" src="logo.jpg">
+                </img>  
+                <div id="plugin-text">
+                  <p>Reaper extentions for</p>
+                  <p>
+                    <a href="https://s3-us-west-2.amazonaws.com/treblemakerdeps/reaper-win64.msi" target="_blank">
+                      WINDOWS & MAC
+                    </a>
+                  </p> 
+                </div>
+              </div>
+            </div>
+            
+            
             
             <div id='demo-wrapper'> 
               <span id='info-txt'>Demos created with TrebleMaker:</span><br /><br />  
