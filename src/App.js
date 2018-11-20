@@ -115,9 +115,9 @@ class App extends Component {
               Your browser does not support the audio element.
             </audio>
             <div class='track-id-outer-wrapper'>
-              <CopyToClipboard text={this.state.value} onCopy={() => this.setState({copied: true})}> 
+              <CopyToClipboard text={this.state.trackId} onCopy={() => this.setState({copied: true})}> 
                 <span class='track-id-wrapper'>  
-                  <span class='track-id-txt' value={this.state.value} onChange={({target: {value}}) => this.setState({value, copied: false})}>
+                  <span class='track-id-txt' value={this.state.trackId} onChange={({target: {value}}) => this.setState({value, copied: false})}>
                   <i class="fas fa-copy control_btns download-btn"></i> 
                   
                   {this.state.copied ? 'Copied to Clipboard' : 'TRACK ID: ' + this.state.trackId} 
