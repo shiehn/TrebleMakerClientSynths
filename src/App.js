@@ -153,13 +153,16 @@ class App extends Component {
               <div id='plugin-inner-wrapper'> 
                 <img id="plugin-icon" src="logo.jpg">
                 </img>  
-                <div id="plugin-text">
-                  <p>Reaper extentions for</p>
+                <div id="plugin-text"> 
+                  <p>
+                    Download TrebleMaker<br/>
+                    Reaper extensions for <br/>
+                  </p>
                   <p>
                     <a href="https://s3-us-west-2.amazonaws.com/treblemakerdeps/reaper-win64.msi" target="_blank">
                       WINDOWS & MAC
-                    </a>
-                  </p> 
+                    </a> 
+                  </p>
                 </div>
               </div>
             </div>
