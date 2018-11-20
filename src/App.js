@@ -159,7 +159,7 @@ class App extends Component {
                     Reaper extensions for <br/>
                   </p>
                   <p>
-                    <a href="https://s3-us-west-2.amazonaws.com/treblemakerdeps/reaper-win64.msi" target="_blank">
+                    <a href="https://s3-us-west-2.amazonaws.com/treblemakerdeps/reaper_tm64.exe" target="_blank">
                       WINDOWS & MAC
                     </a> 
                   </p>
