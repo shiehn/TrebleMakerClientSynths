@@ -16,12 +16,7 @@ const SynthLoader = {
         SynthLoader.hi.start();
         SynthLoader.mid.start();
         SynthLoader.low.start();
-        SynthLoader.kick.start();
-
-        console.log('SynthLoader.snare', SynthLoader.snare)
-        console.log('SynthLoader.hat', SynthLoader.hat)
-
-
+        SynthLoader.kick.start(); 
         SynthLoader.snare.start();
         SynthLoader.hat.start();
     },

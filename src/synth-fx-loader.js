@@ -13,25 +13,38 @@ const SynthFxLoader = {
                 return [volume, delay]
             case "melfx2":
                 var volume = new Tone.Volume(6);
-                var delay = new Tone.PingPongDelay({
+                // var delay = new Tone.PingPongDelay({
+                //     delayTime: SynthFxUtils.getQuarterNote(bpm),
+                //     maxDelayTime: 2,
+                // });
+                var delay = new Tone.Delay ({
                     delayTime: SynthFxUtils.getQuarterNote(bpm),
                     maxDelayTime: 2,
                 });
-  
+
                 return [volume, delay];
             case "hifx1":
                 var volume = new Tone.Volume(-17);
-                var delay = new Tone.PingPongDelay({
+                var delay = new Tone.Delay ({
                     delayTime: SynthFxUtils.getEighthNote(bpm),
                     maxDelayTime: 2,
                 });
+                // var delay = new Tone.PingPongDelay({
+                //     delayTime: SynthFxUtils.getEighthNote(bpm),
+                //     maxDelayTime: 2,
+                // });
+ 
                 var bits = new Tone.BitCrusher(4)
  
                 return [delay, bits, volume];
             case "hifx2":
                 var volume = new Tone.Volume(-17);
-                var delay = new Tone.PingPongDelay({
-                    delayTime: SynthFxUtils.getQuarterNote(bpm),
+                // var delay = new Tone.PingPongDelay({
+                //     delayTime: SynthFxUtils.getQuarterNote(bpm),
+                //     maxDelayTime: 2,
+                // });
+                var delay = new Tone.Delay ({
+                    delayTime: SynthFxUtils.getEighthNote(bpm),
                     maxDelayTime: 2,
                 });
                 var bits = new Tone.BitCrusher(4)
@@ -49,13 +62,19 @@ const SynthFxLoader = {
                 return [volume, vibrato];
             case "midfx2": 
                 var volume = new Tone.Volume(-16);
-                var vibrato = new Tone.Chorus({
-                    frequency: SynthFxUtils.getEighthNote(bpm),
-                    delayTime: 1,
+                var vibrato = new Tone.Vibrato({
+                    maxDelay: 0.5,
+                    frequency: SynthFxUtils.getSixteenthNote(bpm),
                     depth: 1,
-                    type: 'sine',
-                    spread: 360
-                });
+                    type: 'square'
+                }); 
+                // var vibrato = new Tone.Chorus({
+                //     frequency: SynthFxUtils.getEighthNote(bpm),
+                //     delayTime: 1,
+                //     depth: 1,
+                //     type: 'sine',
+                //     spread: 360
+                // });
                  
                 return [volume, vibrato];
             case "lowfx1": 
