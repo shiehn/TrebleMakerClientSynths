@@ -16,6 +16,10 @@ import SynthLoader from './synth-loader';
 import StateExtractor from './state-extractor';
 import { Button } from 'react-bootstrap';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('UA-91752575-1');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 var midiJson = {
   midiMel: null,
@@ -75,17 +79,19 @@ class App extends Component {
   updateWindowDimensions() { 
     this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
-
-  onUpdateUser() {
-    this.props.onUpdateUser("SAMddMY");
-  }
-
+ 
   onUpdatePlayState() {
     this.props.onUpdatePlayState(!this.props.playState);
     this.begin();
   }
 
   onUpdateShowVideo() {
+    ReactGA.event({
+      category: 'Event',
+      action: 'About',
+      value: 'Video'
+    });
+
     this.props.onUpdateShowVideo(!this.props.showVideo);
   }
 
@@ -93,8 +99,34 @@ class App extends Component {
     context.props.onUpdateShowLoading(showLoading);
   }
 
+  onDownLoadWinPlugin(){
+    ReactGA.event({
+      category: 'Event',
+      action: 'DownloadPlugin',
+      value: 'Win64'
+    });
+
+    window.open('https://s3-us-west-2.amazonaws.com/treblemakerdeps/reaper_tm64.exe', '_blank');
+  }
+
   onDownLoadTar() {
-    window.location.href = CDN + TRACK.id + '.tar';
+    ReactGA.event({
+      category: 'Event',
+      action: 'DownloadTAR',
+      value: TRACK.id
+    });
+
+    window.open(CDN + TRACK.id + '.tar', '_blank'); 
+  }
+
+  onCopyToClipboard(value, trackId){
+    ReactGA.event({
+      category: 'Event',
+      action: 'CopyToClipboard',
+      value: trackId
+    });
+
+    this.setState({copied: value})
   }
  
   render() {
@@ -115,12 +147,12 @@ class App extends Component {
               Your browser does not support the audio element.
             </audio>
             <div class='track-id-outer-wrapper'>
-              <CopyToClipboard text={this.state.trackId} onCopy={() => this.setState({copied: true})}> 
+              <CopyToClipboard text={this.state.trackId} onCopy={() => this.onCopyToClipboard(true, this.state.trackId)}> 
                 <span class='track-id-wrapper'>  
                   <span class='track-id-txt' value={this.state.trackId} onChange={({target: {value}}) => this.setState({value, copied: false})}>
                   <i class="fas fa-copy control_btns download-btn"></i> 
                   
-                  {this.state.copied ? 'Copied to Clipboard' : 'TRACK ID: ' + this.state.trackId} 
+                  {this.state.copied ? 'Copied to Clipboard' : 'ID: ' + this.state.trackId} 
                 </span> 
               </span>
               </CopyToClipboard>
@@ -158,17 +190,15 @@ class App extends Component {
                     Download TrebleMaker<br/>
                     Reaper extensions for <br/>
                   </p>
-                  <p>
-                    <a href="https://s3-us-west-2.amazonaws.com/treblemakerdeps/reaper_tm64.exe" target="_blank">
+                  <p> 
+                    <a href="#" onClick={(e) => this.onDownLoadWinPlugin()}>
                       WINDOWS & MAC
                     </a> 
                   </p>
                 </div>
               </div>
             </div>
-            
-            
-            
+             
             <div id='demo-wrapper'> 
               <span id='info-txt'>Demos created with TrebleMaker:</span><br /><br />  
               <iframe width="50%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/519519909&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>
@@ -195,161 +225,8 @@ class App extends Component {
 
         <footer>
         </footer>
-      </div >);
-    //<div className="pageWrapper">
-    //   <div style={{ width: this.state.width, height: this.state.height * 0.8 }}>
-
-    //     <div className="btnRow">
-    //       <span className="btnSpan">
-    //         <Button bsStyle="primary" className="notesBtn" onClick={() => this.props.switchPattern(CONSTS.MELODY_PATTERN, this.props.melodyPattern)}>{
-    //           StateExtractor.getSelectedPattern(this.props.melodyPattern).name + ''
-    //         }</Button>
-    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
-    //           this.props.switchSynth(CONSTS.MELODY_SYNTH, this.props.melodySynths)
-    //           this.stopAndReloadSynths()
-    //         }}>
-    //           {StateExtractor.getSelectedPattern(this.props.melodySynths).name + 'MELODY SyNTH'}
-    //         </Button>
-    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
-    //           this.props.switchFx(CONSTS.MELODY_FX, this.props.melodyFx)
-    //           this.stopAndReloadSynths()
-    //         }}>
-    //           {StateExtractor.getSelectedPattern(this.props.melodyFx).name + 'MELODY FX'}
-    //         </Button>
-    //       </span>
-    //     </div>
-
-    //     <div className="btnRow">
-    //       <span className="btnSpan">
-    //         <Button bsStyle="primary" className="notesBtn" onClick={() => {this.props.switchPattern(CONSTS.HI_PATTERN, this.props.hiPattern)}>{
-    //           StateExtractor.getSelectedPattern(this.props.hiPattern).selected + 'Hi Notes'
-    //         }</Button>
-    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
-    //           this.props.switchSynth(CONSTS.HI_SYNTH, this.props.hiSynths)
-    //           this.stopAndReloadSynths()
-    //         }}>
-    //           {StateExtractor.getSelectedPattern(this.props.hiSynths).name + 'Hi Synth'}
-    //         </Button>
-    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
-    //           this.props.switchFx(CONSTS.HI_FX, this.props.hiFx)
-    //           this.stopAndReloadSynths()
-    //         }}>
-    //           {StateExtractor.getSelectedPattern(this.props.hiFx).name + 'HI FX'}
-    //         </Button>
-    //       </span>
-    //     </div>
-
-    //     <div className="btnRow">
-    //       <span className="btnSpan">
-    //         <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.MID_PATTERN, this.props.midPattern, e)}>{
-    //           StateExtractor.getSelectedPattern(this.props.midPattern).selected + 'Mid Notes'
-    //         }</Button>
-    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
-    //           this.props.switchSynth(CONSTS.MID_SYNTH, this.props.midSynths)
-    //           this.stopAndReloadSynths()
-    //         }} >
-    //           {StateExtractor.getSelectedPattern(this.props.midSynths).name + 'Mid Synth'}
-    //         </Button>
-    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
-    //           this.props.switchFx(CONSTS.MID_FX, this.props.midFx)
-    //           this.stopAndReloadSynths()
-    //         }}>
-    //           {StateExtractor.getSelectedPattern(this.props.midFx).name + 'MID FX'}
-    //         </Button>
-    //       </span>
-    //     </div>
-
-    //     <div className="btnRow">
-    //       <span className="btnSpan">
-    //         <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.LOW_PATTERN, this.props.lowPattern, e)}>{
-    //           StateExtractor.getSelectedPattern(this.props.lowPattern).selected + 'Low Notes'
-    //         }</Button>
-    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
-    //           this.props.switchSynth(CONSTS.LOW_SYNTH, this.props.lowSynths)
-    //           this.stopAndReloadSynths()
-    //         }} >
-    //           {StateExtractor.getSelectedPattern(this.props.lowSynths).name + 'Low Synth'}
-    //         </Button>
-    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
-    //           this.props.switchFx(CONSTS.LOW_FX, this.props.lowFx)
-    //           this.stopAndReloadSynths()
-    //         }}>
-    //           {StateExtractor.getSelectedPattern(this.props.lowFx).name + 'LOW FX'}
-    //         </Button>
-    //       </span>
-    //     </div>
-
-    //     <div className="btnRow">
-    //       <span className="btnSpan">
-    //         <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.KICK_PATTERN, this.props.kickPattern, e)}>{
-    //           StateExtractor.getSelectedPattern(this.props.kickPattern).selected + 'Kick Pattern'
-    //         }</Button>
-    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
-    //           this.props.switchSynth(CONSTS.KICK_SYNTH, this.props.kickSynths)
-    //           this.stopAndReloadSynths()
-    //         }} >
-    //           {StateExtractor.getSelectedPattern(this.props.kickSynths).name + 'KICK Synth'}
-    //         </Button>
-    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
-    //           this.props.switchFx(CONSTS.KICK_FX, this.props.kickFx)
-    //           this.stopAndReloadSynths()
-    //         }}>
-    //           {StateExtractor.getSelectedPattern(this.props.kickFx).name + 'KICK FX'}
-    //         </Button>
-    //       </span>
-    //     </div>
-
-    //     <div className="btnRow">
-    //       <span className="btnSpan">
-    //         <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.SNARE_PATTERN, this.props.snarePattern, e)}>{
-    //           StateExtractor.getSelectedPattern(this.props.snarePattern).selected + 'Snare Pattern'
-    //         }</Button>
-    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
-    //           this.props.switchSynth(CONSTS.SNARE_SYNTH, this.props.snareSynths)
-    //           this.stopAndReloadSynths()
-    //         }} >
-    //           {StateExtractor.getSelectedPattern(this.props.snareSynths).name + 'SNARE Synth'}
-    //         </Button>
-    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
-    //           this.props.switchFx(CONSTS.SNARE_FX, this.props.snareFx)
-    //           this.stopAndReloadSynths()
-    //         }}>
-    //           {StateExtractor.getSelectedPattern(this.props.snareFx).name + 'SNARE FX'}
-    //         </Button>
-    //       </span>
-    //     </div>
-
-    //     <div className="btnRow">
-    //       <span className="btnSpan">
-    //         <Button bsStyle="primary" className="notesBtn" onClick={(e) => this.props.switchPattern(CONSTS.HAT_PATTERN, this.props.hatPattern, e)}>{
-    //           StateExtractor.getSelectedPattern(this.props.hatPattern).selected + 'Hat Pattern'
-    //         }</Button>
-    //         <Button bsStyle="primary" className="synthBtn" onClick={() => {
-    //           this.props.switchSynth(CONSTS.HAT_SYNTH, this.props.hatSynths)
-    //           this.stopAndReloadSynths()
-    //         }} >
-    //           {StateExtractor.getSelectedPattern(this.props.hatSynths).name + 'HAT Synth'}
-    //         </Button>
-    //         <Button bsStyle="primary" className="fxBtn" onClick={() => {
-    //           this.props.switchFx(CONSTS.HAT_FX, this.props.hatFx)
-    //           this.stopAndReloadSynths()
-    //         }}>
-    //           {StateExtractor.getSelectedPattern(this.props.hatFx).name + 'HAT FX'}
-    //         </Button>
-    //       </span>
-    //     </div>
-    //   </div>
-
-    //   <div className="playControlls" style={{ width: this.state.width, height: this.state.height * 0.2 }}>
-    //     <span className="payControllsRow">
-    //       <Button bsStyle="primary" className="playBtn" onClick={this.onUpdatePlayState.bind(this)}>PLAY</Button>
-    //       <Button bsStyle="primary" className="playBtn" onClick={() => { this.stopIt() }}>STOP</Button>
-    //       <Button bsStyle="primary" className="refreshBtn">REFRESH</Button>
-    //     </span>
-    //   </div>
-    //</div>
-    //);
-  }
+      </div >); 
+}
 
   stopIt() {
     Tone.Transport.stop();
@@ -360,6 +237,11 @@ class App extends Component {
   }
 
   stopRefreshAndLoadSynths() {
+    ReactGA.event({
+      category: 'Event',
+      action: 'RefreshTrack'
+    });
+
     this.props.onUpdateShowLoading(true);
     this.stopIt();
     this.reloadMidi();
@@ -394,6 +276,11 @@ class App extends Component {
   }
 
   stopAndReloadSynths() {
+    ReactGA.event({
+      category: 'Event',
+      action: 'Play'
+    });
+
     Tone.Transport.bpm.value = 120
 
     if (!TRACK.id) {

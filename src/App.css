@@ -181,6 +181,7 @@ audio#audio-tag {
 .track-id-txt {
   color: darkred;
   font-weight: bold;
+  margin-left: -2%;
 }
 
 .track-id-outer-wrapper {
