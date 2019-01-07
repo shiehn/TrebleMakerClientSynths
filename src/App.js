@@ -233,6 +233,10 @@ class App extends Component {
   }
 
   begin() {
+    if (Tone.context.state !== 'running') {
+      Tone.context.resume();
+    }
+
     Tone.Transport.start()
   }
 
