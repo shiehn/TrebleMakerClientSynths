@@ -62,7 +62,7 @@ class App extends Component {
   }
 
   reloadMidi() {
-    MidiLoader.getTrackId(SERVER_ENDPOINT, TRACK, midiJson, this.updateTrackId);  
+    MidiLoader.getTrackId(SERVER_ENDPOINT, TRACK, midiJson, this);
     this.setState({ width: window.innerWidth, trackId: TRACK.id });
     setTimeout(this.onUpdateShowLoading, 2000, this, false)
   }

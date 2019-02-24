@@ -1,8 +1,8 @@
 import { load } from 'midiconvert';
-
+//this.updateTrackId
 const MidiLoader = {
-    getTrackId(SERVER_ENDPOINT, TRACK, midiJson, updateTrackId){ 
-        fetch(SERVER_ENDPOINT).then(function(response) { 
+    getTrackId(SERVER_ENDPOINT, TRACK, midiJson, context){
+        fetch(SERVER_ENDPOINT).then(function(response) {
             return response.json()
         }).then(function(json) { 
             TRACK.id = json.name;  
@@ -19,13 +19,18 @@ const MidiLoader = {
 
             TRACK.bpm = bpm;
 
-            updateTrackId();
-
-            MidiLoader.loadMidi(midiJson, TRACK)
+            fetch("https://s3-us-west-2.amazonaws.com/songseeds/" + TRACK.id + "/0comphi.mid").then(function(response) {
+                if (response.ok) {
+                    context.updateTrackId();
+                    MidiLoader.loadMidi(midiJson, TRACK)
+                } else {
+                    console.log('UNABLE TO LOAD TRACK!!!!')
+                    context.reloadMidi()
+                }
+            })
         }); 
-    },  
-    loadMidi(midiJson, TRACK) { 
-
+    },
+    loadMidi(midiJson, TRACK) {
         console.log('TRACK INFO', TRACK)
 
         var melodyFile = "/0compmelodic.mid";
